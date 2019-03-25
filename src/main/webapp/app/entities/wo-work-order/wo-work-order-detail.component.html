@@ -1,0 +1,121 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="woWorkOrder">
+            <h2><span>Wo Work Order</span> {{woWorkOrder.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Customs Broker Name</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.customsBrokerName}}</span>
+                </dd>
+                <dt><span>Customs Contact Name</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.customsContactName}}</span>
+                </dd>
+                <dt><span>Customs Currency</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.customsCurrency}}</span>
+                </dd>
+                <dt><span>Customs Phone Number</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.customsPhoneNumber}}</span>
+                </dd>
+                <dt><span>Customs Value</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.customsValue}}</span>
+                </dd>
+                <dt><span>From Airport Code</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.fromAirportCode}}</span>
+                </dd>
+                <dt><span>From Location Type</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.fromLocationType}}</span>
+                </dd>
+                <dt><span>Job Content Descr</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.jobContentDescr}}</span>
+                </dd>
+                <dt><span>Ship Quantity</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.shipQuantity}}</span>
+                </dd>
+                <dt><span>Job Original Cost</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.jobOriginalCost}}</span>
+                </dd>
+                <dt><span>Quoted Amount</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.quotedAmount}}</span>
+                </dd>
+                <dt><span>Assign To</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.assignTo}}</span>
+                </dd>
+                <dt><span>To Company</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.toCompany}}</span>
+                </dd>
+                <dt><span>To Location Type</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.toLocationType}}</span>
+                </dd>
+                <dt><span>Date Created</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.dateCreated}}</span>
+                </dd>
+                <dt><span>Job Number</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.jobNumber}}</span>
+                </dd>
+                <dt><span>Job Customer</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.jobCustomer}}</span>
+                </dd>
+                <dt><span>Service Type</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.serviceType}}</span>
+                </dd>
+                <dt><span>Job Sales</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.jobSales}}</span>
+                </dd>
+                <dt><span>Wo Request Type</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.woRequestType}}</span>
+                </dd>
+                <dt><span>Ship To</span></dt>
+                <dd>
+                    <div *ngIf="woWorkOrder.shipTo">
+                        <a [routerLink]="['/shipping-address', woWorkOrder.shipTo?.id, 'view']">{{woWorkOrder.shipTo?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Ship From</span></dt>
+                <dd>
+                    <div *ngIf="woWorkOrder.shipFrom">
+                        <a [routerLink]="['/shipping-address', woWorkOrder.shipFrom?.id, 'view']">{{woWorkOrder.shipFrom?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Wo Package Type</span></dt>
+                <dd>
+                    <div *ngIf="woWorkOrder.woPackageType">
+                        <a [routerLink]="['/wo-package-type', woWorkOrder.woPackageType?.id, 'view']">{{woWorkOrder.woPackageType?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/wo-work-order', woWorkOrder.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
