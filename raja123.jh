@@ -1,0 +1,95 @@
+
+entity Country {
+  name String maxlength(255)
+  fullName String maxlength(255)
+  isRestricted Boolean
+  
+}
+entity Province {
+  
+  name String maxlength(255)
+  fullName String maxlength(255)
+  
+ 
+ }
+entity City {  
+  city String maxlength(255)   
+}
+
+entity ShippingAddress {
+ 
+  attention String maxlength(255)
+  company String maxlength(255)
+  address1 String maxlength(255)
+  address2 String maxlength(255)
+  phone String maxlength(255)
+  email String maxlength(255)
+  postalCode String maxlength(255)
+  confirmDelivery Boolean
+  instructions String maxlength(255)
+  notifyRecipient Boolean
+  res Boolean
+  tailgate Boolean
+ 
+}
+
+entity WoPackage {
+   
+  description String maxlength(255) 
+  length Integer max(11) 
+  width Integer max(11) 
+  height Integer max(11) 
+  weight Integer max(11) 
+  cubedWeight Integer max(11) 
+  trackingNumber String maxlength(255) 
+  codValue Double 
+  insuranceAmount Double 
+  oid Integer max(20) 
+  position Integer max(11) 
+  freightClass String maxlength(10) 
+  type String maxlength(255) 
+}
+
+entity WoPackageType {
+  name String maxlength(255)
+}
+
+entity WoWorkOrder {
+  
+  customsBrokerName String maxlength(255) 
+  customsContactName String maxlength(255) 
+  customsCurrency String maxlength(255) 
+  customsPhoneNumber String maxlength(255)    
+  customsValue Double   
+  fromAirportCode String maxlength(255) 
+  fromLocationType Integer max(11) 
+  jobContentDescr String maxlength(255) 
+  shipQuantity Integer max(11)
+  jobOriginalCost Integer max(11) 
+  quotedAmount String maxlength(255) 
+  assignTo String maxlength(255)
+  toCompany String maxlength(255)
+  toLocationType Integer max(11)  
+  dateCreated ZonedDateTime
+  jobNumber String maxlength(255)  
+  jobCustomer String maxlength(255)
+  serviceType Long
+  jobSales String maxlength(255) 
+  woRequestType Integer max(11)  
+}
+
+relationship ManyToOne {
+ WoPackage to WoPackageType
+ WoWorkOrder{shipTo} to ShippingAddress
+ WoWorkOrder{shipFrom} to ShippingAddress
+ WoWorkOrder to WoPackageType 
+ ShippingAddress to Country
+ ShippingAddress to Province
+ ShippingAddress to City
+ Province to Country
+ City to Province
+}
+
+relationship OneToMany {
+WoWorkOrder to WoPackage
+}
