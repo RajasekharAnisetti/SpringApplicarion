@@ -1,0 +1,94 @@
+<div>
+    <h2 id="page-heading">
+        <span>Shipping Addresses</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-shipping-address" [routerLink]="['/shipping-address/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Shipping Address
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="shippingAddresses">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Attention</span></th>
+            <th><span>Company</span></th>
+            <th><span>Address 1</span></th>
+            <th><span>Address 2</span></th>
+            <th><span>Phone</span></th>
+            <th><span>Email</span></th>
+            <th><span>Postal Code</span></th>
+            <th><span>Confirm Delivery</span></th>
+            <th><span>Instructions</span></th>
+            <th><span>Notify Recipient</span></th>
+            <th><span>Res</span></th>
+            <th><span>Tailgate</span></th>
+            <th><span>Country</span></th>
+            <th><span>Province</span></th>
+            <th><span>City</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let shippingAddress of shippingAddresses ;trackBy: trackId">
+                <td><a [routerLink]="['/shipping-address', shippingAddress.id, 'view' ]">{{shippingAddress.id}}</a></td>
+                <td>{{shippingAddress.attention}}</td>
+                <td>{{shippingAddress.company}}</td>
+                <td>{{shippingAddress.address1}}</td>
+                <td>{{shippingAddress.address2}}</td>
+                <td>{{shippingAddress.phone}}</td>
+                <td>{{shippingAddress.email}}</td>
+                <td>{{shippingAddress.postalCode}}</td>
+                <td>{{shippingAddress.confirmDelivery}}</td>
+                <td>{{shippingAddress.instructions}}</td>
+                <td>{{shippingAddress.notifyRecipient}}</td>
+                <td>{{shippingAddress.res}}</td>
+                <td>{{shippingAddress.tailgate}}</td>
+                <td>
+                    <div *ngIf="shippingAddress.country">
+                        <a [routerLink]="['../country', shippingAddress.country?.id, 'view' ]" >{{shippingAddress.country?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="shippingAddress.province">
+                        <a [routerLink]="['../province', shippingAddress.province?.id, 'view' ]" >{{shippingAddress.province?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="shippingAddress.city">
+                        <a [routerLink]="['../city', shippingAddress.city?.id, 'view' ]" >{{shippingAddress.city?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/shipping-address', shippingAddress.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/shipping-address', shippingAddress.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'shipping-address', { outlets: { popup: shippingAddress.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+{
+    "name": "WoPackageType",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "woPackage",
+            "otherEntityRelationshipName": "woPackageType",
+            "relationshipName": "woPackage"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "woWorkOrder",
+            "otherEntityRelationshipName": "woPackageType",
+            "relationshipName": "woWorkOrder"
+        }
+    ],
+    "changelogDate": "20190325180933",
+    "entityTableName": "wo_package_type",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

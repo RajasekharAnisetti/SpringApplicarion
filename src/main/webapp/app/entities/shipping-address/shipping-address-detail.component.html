@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="shippingAddress">
+            <h2><span>Shipping Address</span> {{shippingAddress.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Attention</span></dt>
+                <dd>
+                    <span>{{shippingAddress.attention}}</span>
+                </dd>
+                <dt><span>Company</span></dt>
+                <dd>
+                    <span>{{shippingAddress.company}}</span>
+                </dd>
+                <dt><span>Address 1</span></dt>
+                <dd>
+                    <span>{{shippingAddress.address1}}</span>
+                </dd>
+                <dt><span>Address 2</span></dt>
+                <dd>
+                    <span>{{shippingAddress.address2}}</span>
+                </dd>
+                <dt><span>Phone</span></dt>
+                <dd>
+                    <span>{{shippingAddress.phone}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{shippingAddress.email}}</span>
+                </dd>
+                <dt><span>Postal Code</span></dt>
+                <dd>
+                    <span>{{shippingAddress.postalCode}}</span>
+                </dd>
+                <dt><span>Confirm Delivery</span></dt>
+                <dd>
+                    <span>{{shippingAddress.confirmDelivery}}</span>
+                </dd>
+                <dt><span>Instructions</span></dt>
+                <dd>
+                    <span>{{shippingAddress.instructions}}</span>
+                </dd>
+                <dt><span>Notify Recipient</span></dt>
+                <dd>
+                    <span>{{shippingAddress.notifyRecipient}}</span>
+                </dd>
+                <dt><span>Res</span></dt>
+                <dd>
+                    <span>{{shippingAddress.res}}</span>
+                </dd>
+                <dt><span>Tailgate</span></dt>
+                <dd>
+                    <span>{{shippingAddress.tailgate}}</span>
+                </dd>
+                <dt><span>Country</span></dt>
+                <dd>
+                    <div *ngIf="shippingAddress.country">
+                        <a [routerLink]="['/country', shippingAddress.country?.id, 'view']">{{shippingAddress.country?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Province</span></dt>
+                <dd>
+                    <div *ngIf="shippingAddress.province">
+                        <a [routerLink]="['/province', shippingAddress.province?.id, 'view']">{{shippingAddress.province?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>City</span></dt>
+                <dd>
+                    <div *ngIf="shippingAddress.city">
+                        <a [routerLink]="['/city', shippingAddress.city?.id, 'view']">{{shippingAddress.city?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/shipping-address', shippingAddress.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

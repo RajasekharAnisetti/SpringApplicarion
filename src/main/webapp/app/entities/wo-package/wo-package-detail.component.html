@@ -1,0 +1,87 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="woPackage">
+            <h2><span>Wo Package</span> {{woPackage.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{woPackage.description}}</span>
+                </dd>
+                <dt><span>Length</span></dt>
+                <dd>
+                    <span>{{woPackage.length}}</span>
+                </dd>
+                <dt><span>Width</span></dt>
+                <dd>
+                    <span>{{woPackage.width}}</span>
+                </dd>
+                <dt><span>Height</span></dt>
+                <dd>
+                    <span>{{woPackage.height}}</span>
+                </dd>
+                <dt><span>Weight</span></dt>
+                <dd>
+                    <span>{{woPackage.weight}}</span>
+                </dd>
+                <dt><span>Cubed Weight</span></dt>
+                <dd>
+                    <span>{{woPackage.cubedWeight}}</span>
+                </dd>
+                <dt><span>Tracking Number</span></dt>
+                <dd>
+                    <span>{{woPackage.trackingNumber}}</span>
+                </dd>
+                <dt><span>Cod Value</span></dt>
+                <dd>
+                    <span>{{woPackage.codValue}}</span>
+                </dd>
+                <dt><span>Insurance Amount</span></dt>
+                <dd>
+                    <span>{{woPackage.insuranceAmount}}</span>
+                </dd>
+                <dt><span>Oid</span></dt>
+                <dd>
+                    <span>{{woPackage.oid}}</span>
+                </dd>
+                <dt><span>Position</span></dt>
+                <dd>
+                    <span>{{woPackage.position}}</span>
+                </dd>
+                <dt><span>Freight Class</span></dt>
+                <dd>
+                    <span>{{woPackage.freightClass}}</span>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{woPackage.type}}</span>
+                </dd>
+                <dt><span>Wo Package Type</span></dt>
+                <dd>
+                    <div *ngIf="woPackage.woPackageType">
+                        <a [routerLink]="['/wo-package-type', woPackage.woPackageType?.id, 'view']">{{woPackage.woPackageType?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Wo Work Order</span></dt>
+                <dd>
+                    <div *ngIf="woPackage.woWorkOrder">
+                        <a [routerLink]="['/wo-work-order', woPackage.woWorkOrder?.id, 'view']">{{woPackage.woWorkOrder?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/wo-package', woPackage.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

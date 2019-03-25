@@ -1,0 +1,269 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-wo-work-order-heading">Create or edit a Wo Work Order</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!woWorkOrder.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="woWorkOrder.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customsBrokerName">Customs Broker Name</label>
+                    <input type="text" class="form-control" name="customsBrokerName" id="field_customsBrokerName"
+                        [(ngModel)]="woWorkOrder.customsBrokerName" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.customsBrokerName?.dirty && editForm.controls.customsBrokerName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.customsBrokerName?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customsContactName">Customs Contact Name</label>
+                    <input type="text" class="form-control" name="customsContactName" id="field_customsContactName"
+                        [(ngModel)]="woWorkOrder.customsContactName" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.customsContactName?.dirty && editForm.controls.customsContactName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.customsContactName?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customsCurrency">Customs Currency</label>
+                    <input type="text" class="form-control" name="customsCurrency" id="field_customsCurrency"
+                        [(ngModel)]="woWorkOrder.customsCurrency" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.customsCurrency?.dirty && editForm.controls.customsCurrency?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.customsCurrency?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customsPhoneNumber">Customs Phone Number</label>
+                    <input type="text" class="form-control" name="customsPhoneNumber" id="field_customsPhoneNumber"
+                        [(ngModel)]="woWorkOrder.customsPhoneNumber" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.customsPhoneNumber?.dirty && editForm.controls.customsPhoneNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.customsPhoneNumber?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customsValue">Customs Value</label>
+                    <input type="number" class="form-control" name="customsValue" id="field_customsValue"
+                        [(ngModel)]="woWorkOrder.customsValue" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fromAirportCode">From Airport Code</label>
+                    <input type="text" class="form-control" name="fromAirportCode" id="field_fromAirportCode"
+                        [(ngModel)]="woWorkOrder.fromAirportCode" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.fromAirportCode?.dirty && editForm.controls.fromAirportCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fromAirportCode?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fromLocationType">From Location Type</label>
+                    <input type="number" class="form-control" name="fromLocationType" id="field_fromLocationType"
+                        [(ngModel)]="woWorkOrder.fromLocationType" max="11" jhiMax="11"/>
+                    <div [hidden]="!(editForm.controls.fromLocationType?.dirty && editForm.controls.fromLocationType?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.fromLocationType?.errors?.max">
+                            This field cannot be more than 11.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.fromLocationType?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_jobContentDescr">Job Content Descr</label>
+                    <input type="text" class="form-control" name="jobContentDescr" id="field_jobContentDescr"
+                        [(ngModel)]="woWorkOrder.jobContentDescr" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.jobContentDescr?.dirty && editForm.controls.jobContentDescr?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.jobContentDescr?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shipQuantity">Ship Quantity</label>
+                    <input type="number" class="form-control" name="shipQuantity" id="field_shipQuantity"
+                        [(ngModel)]="woWorkOrder.shipQuantity" max="11" jhiMax="11"/>
+                    <div [hidden]="!(editForm.controls.shipQuantity?.dirty && editForm.controls.shipQuantity?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.shipQuantity?.errors?.max">
+                            This field cannot be more than 11.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.shipQuantity?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_jobOriginalCost">Job Original Cost</label>
+                    <input type="number" class="form-control" name="jobOriginalCost" id="field_jobOriginalCost"
+                        [(ngModel)]="woWorkOrder.jobOriginalCost" max="11" jhiMax="11"/>
+                    <div [hidden]="!(editForm.controls.jobOriginalCost?.dirty && editForm.controls.jobOriginalCost?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.jobOriginalCost?.errors?.max">
+                            This field cannot be more than 11.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.jobOriginalCost?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_quotedAmount">Quoted Amount</label>
+                    <input type="text" class="form-control" name="quotedAmount" id="field_quotedAmount"
+                        [(ngModel)]="woWorkOrder.quotedAmount" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.quotedAmount?.dirty && editForm.controls.quotedAmount?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.quotedAmount?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_assignTo">Assign To</label>
+                    <input type="text" class="form-control" name="assignTo" id="field_assignTo"
+                        [(ngModel)]="woWorkOrder.assignTo" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.assignTo?.dirty && editForm.controls.assignTo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.assignTo?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_toCompany">To Company</label>
+                    <input type="text" class="form-control" name="toCompany" id="field_toCompany"
+                        [(ngModel)]="woWorkOrder.toCompany" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.toCompany?.dirty && editForm.controls.toCompany?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.toCompany?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_toLocationType">To Location Type</label>
+                    <input type="number" class="form-control" name="toLocationType" id="field_toLocationType"
+                        [(ngModel)]="woWorkOrder.toLocationType" max="11" jhiMax="11"/>
+                    <div [hidden]="!(editForm.controls.toLocationType?.dirty && editForm.controls.toLocationType?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.toLocationType?.errors?.max">
+                            This field cannot be more than 11.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.toLocationType?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateCreated">Date Created</label>
+                    <div class="d-flex">
+                        <input id="field_dateCreated" type="datetime-local" class="form-control" name="dateCreated" [(ngModel)]="dateCreated" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_jobNumber">Job Number</label>
+                    <input type="text" class="form-control" name="jobNumber" id="field_jobNumber"
+                        [(ngModel)]="woWorkOrder.jobNumber" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.jobNumber?.dirty && editForm.controls.jobNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.jobNumber?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_jobCustomer">Job Customer</label>
+                    <input type="text" class="form-control" name="jobCustomer" id="field_jobCustomer"
+                        [(ngModel)]="woWorkOrder.jobCustomer" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.jobCustomer?.dirty && editForm.controls.jobCustomer?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.jobCustomer?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_serviceType">Service Type</label>
+                    <input type="number" class="form-control" name="serviceType" id="field_serviceType"
+                        [(ngModel)]="woWorkOrder.serviceType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_jobSales">Job Sales</label>
+                    <input type="text" class="form-control" name="jobSales" id="field_jobSales"
+                        [(ngModel)]="woWorkOrder.jobSales" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.jobSales?.dirty && editForm.controls.jobSales?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.jobSales?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_woRequestType">Wo Request Type</label>
+                    <input type="number" class="form-control" name="woRequestType" id="field_woRequestType"
+                        [(ngModel)]="woWorkOrder.woRequestType" max="11" jhiMax="11"/>
+                    <div [hidden]="!(editForm.controls.woRequestType?.dirty && editForm.controls.woRequestType?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.woRequestType?.errors?.max">
+                            This field cannot be more than 11.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.woRequestType?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shipTo">Ship To</label>
+                    <select class="form-control" id="field_shipTo" name="shipTo" [(ngModel)]="woWorkOrder.shipTo" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="shippingAddressOption.id === woWorkOrder.shipTo?.id ? woWorkOrder.shipTo : shippingAddressOption" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shipFrom">Ship From</label>
+                    <select class="form-control" id="field_shipFrom" name="shipFrom" [(ngModel)]="woWorkOrder.shipFrom" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="shippingAddressOption.id === woWorkOrder.shipFrom?.id ? woWorkOrder.shipFrom : shippingAddressOption" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_woPackageType">Wo Package Type</label>
+                    <select class="form-control" id="field_woPackageType" name="woPackageType" [(ngModel)]="woWorkOrder.woPackageType" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="woPackageTypeOption.id === woWorkOrder.woPackageType?.id ? woWorkOrder.woPackageType : woPackageTypeOption" *ngFor="let woPackageTypeOption of wopackagetypes; trackBy: trackWoPackageTypeById">{{woPackageTypeOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

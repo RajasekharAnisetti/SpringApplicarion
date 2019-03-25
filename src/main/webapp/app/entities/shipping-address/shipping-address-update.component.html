@@ -1,0 +1,153 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-shipping-address-heading">Create or edit a Shipping Address</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!shippingAddress.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="shippingAddress.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_attention">Attention</label>
+                    <input type="text" class="form-control" name="attention" id="field_attention"
+                        [(ngModel)]="shippingAddress.attention" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.attention?.dirty && editForm.controls.attention?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.attention?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_company">Company</label>
+                    <input type="text" class="form-control" name="company" id="field_company"
+                        [(ngModel)]="shippingAddress.company" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.company?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_address1">Address 1</label>
+                    <input type="text" class="form-control" name="address1" id="field_address1"
+                        [(ngModel)]="shippingAddress.address1" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.address1?.dirty && editForm.controls.address1?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.address1?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_address2">Address 2</label>
+                    <input type="text" class="form-control" name="address2" id="field_address2"
+                        [(ngModel)]="shippingAddress.address2" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.address2?.dirty && editForm.controls.address2?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.address2?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                        [(ngModel)]="shippingAddress.phone" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.phone?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="shippingAddress.email" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.email?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_postalCode">Postal Code</label>
+                    <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                        [(ngModel)]="shippingAddress.postalCode" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.postalCode?.dirty && editForm.controls.postalCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postalCode?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_confirmDelivery">Confirm Delivery</label>
+                    <input type="checkbox" class="form-control" name="confirmDelivery" id="field_confirmDelivery"
+                        [(ngModel)]="shippingAddress.confirmDelivery" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_instructions">Instructions</label>
+                    <input type="text" class="form-control" name="instructions" id="field_instructions"
+                        [(ngModel)]="shippingAddress.instructions" maxlength="255"/>
+                    <div [hidden]="!(editForm.controls.instructions?.dirty && editForm.controls.instructions?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.instructions?.errors?.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_notifyRecipient">Notify Recipient</label>
+                    <input type="checkbox" class="form-control" name="notifyRecipient" id="field_notifyRecipient"
+                        [(ngModel)]="shippingAddress.notifyRecipient" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_res">Res</label>
+                    <input type="checkbox" class="form-control" name="res" id="field_res"
+                        [(ngModel)]="shippingAddress.res" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tailgate">Tailgate</label>
+                    <input type="checkbox" class="form-control" name="tailgate" id="field_tailgate"
+                        [(ngModel)]="shippingAddress.tailgate" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_country">Country</label>
+                    <select class="form-control" id="field_country" name="country" [(ngModel)]="shippingAddress.country" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="countryOption.id === shippingAddress.country?.id ? shippingAddress.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_province">Province</label>
+                    <select class="form-control" id="field_province" name="province" [(ngModel)]="shippingAddress.province" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="provinceOption.id === shippingAddress.province?.id ? shippingAddress.province : provinceOption" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_city">City</label>
+                    <select class="form-control" id="field_city" name="city" [(ngModel)]="shippingAddress.city" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cityOption.id === shippingAddress.city?.id ? shippingAddress.city : cityOption" *ngFor="let cityOption of cities; trackBy: trackCityById">{{cityOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
