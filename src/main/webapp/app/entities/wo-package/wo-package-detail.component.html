@@ -59,14 +59,14 @@
                 </dd>
                 <dt><span>Wo Package Type</span></dt>
                 <dd>
-                    <div *ngIf="woPackage.woPackageType">
-                        <a [routerLink]="['/wo-package-type', woPackage.woPackageType?.id, 'view']">{{woPackage.woPackageType?.id}}</a>
+                    <div *ngIf="woPackage.woPackageTypeId">
+                        <a [routerLink]="['/wo-package-type', woPackage.woPackageTypeId, 'view']">{{woPackage.woPackageTypeId}}</a>
                     </div>
                 </dd>
                 <dt><span>Wo Work Order</span></dt>
                 <dd>
-                    <div *ngIf="woPackage.woWorkOrder">
-                        <a [routerLink]="['/wo-work-order', woPackage.woWorkOrder?.id, 'view']">{{woPackage.woWorkOrder?.id}}</a>
+                    <div *ngIf="woPackage.woWorkOrderId">
+                        <a [routerLink]="['/wo-work-order', woPackage.woWorkOrderId, 'view']">{{woPackage.woWorkOrderId}}</a>
                     </div>
                 </dd>
             </dl>

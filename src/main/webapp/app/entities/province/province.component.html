@@ -27,8 +27,8 @@
                 <td>{{province.name}}</td>
                 <td>{{province.fullName}}</td>
                 <td>
-                    <div *ngIf="province.country">
-                        <a [routerLink]="['../country', province.country?.id, 'view' ]" >{{province.country?.id}}</a>
+                    <div *ngIf="province.countryId">
+                        <a [routerLink]="['../country', province.countryId , 'view' ]" >{{province.countryId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

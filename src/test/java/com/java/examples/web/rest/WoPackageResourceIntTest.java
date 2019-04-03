@@ -4,6 +4,9 @@ import com.java.examples.SpringApplicarionApp;
 
 import com.java.examples.domain.WoPackage;
 import com.java.examples.repository.WoPackageRepository;
+import com.java.examples.service.WoPackageService;
+import com.java.examples.service.dto.WoPackageDTO;
+import com.java.examples.service.mapper.WoPackageMapper;
 import com.java.examples.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -83,6 +86,12 @@ public class WoPackageResourceIntTest {
     private WoPackageRepository woPackageRepository;
 
     @Autowired
+    private WoPackageMapper woPackageMapper;
+
+    @Autowired
+    private WoPackageService woPackageService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -104,7 +113,7 @@ public class WoPackageResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WoPackageResource woPackageResource = new WoPackageResource(woPackageRepository);
+        final WoPackageResource woPackageResource = new WoPackageResource(woPackageService);
         this.restWoPackageMockMvc = MockMvcBuilders.standaloneSetup(woPackageResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -148,9 +157,10 @@ public class WoPackageResourceIntTest {
         int databaseSizeBeforeCreate = woPackageRepository.findAll().size();
 
         // Create the WoPackage
+        WoPackageDTO woPackageDTO = woPackageMapper.toDto(woPackage);
         restWoPackageMockMvc.perform(post("/api/wo-packages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woPackage)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageDTO)))
             .andExpect(status().isCreated());
 
         // Validate the WoPackage in the database
@@ -179,11 +189,12 @@ public class WoPackageResourceIntTest {
 
         // Create the WoPackage with an existing ID
         woPackage.setId(1L);
+        WoPackageDTO woPackageDTO = woPackageMapper.toDto(woPackage);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restWoPackageMockMvc.perform(post("/api/wo-packages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woPackage)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the WoPackage in the database
@@ -277,10 +288,11 @@ public class WoPackageResourceIntTest {
             .position(UPDATED_POSITION)
             .freightClass(UPDATED_FREIGHT_CLASS)
             .type(UPDATED_TYPE);
+        WoPackageDTO woPackageDTO = woPackageMapper.toDto(updatedWoPackage);
 
         restWoPackageMockMvc.perform(put("/api/wo-packages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedWoPackage)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageDTO)))
             .andExpect(status().isOk());
 
         // Validate the WoPackage in the database
@@ -308,11 +320,12 @@ public class WoPackageResourceIntTest {
         int databaseSizeBeforeUpdate = woPackageRepository.findAll().size();
 
         // Create the WoPackage
+        WoPackageDTO woPackageDTO = woPackageMapper.toDto(woPackage);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restWoPackageMockMvc.perform(put("/api/wo-packages")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woPackage)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the WoPackage in the database
@@ -351,5 +364,28 @@ public class WoPackageResourceIntTest {
         assertThat(woPackage1).isNotEqualTo(woPackage2);
         woPackage1.setId(null);
         assertThat(woPackage1).isNotEqualTo(woPackage2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(WoPackageDTO.class);
+        WoPackageDTO woPackageDTO1 = new WoPackageDTO();
+        woPackageDTO1.setId(1L);
+        WoPackageDTO woPackageDTO2 = new WoPackageDTO();
+        assertThat(woPackageDTO1).isNotEqualTo(woPackageDTO2);
+        woPackageDTO2.setId(woPackageDTO1.getId());
+        assertThat(woPackageDTO1).isEqualTo(woPackageDTO2);
+        woPackageDTO2.setId(2L);
+        assertThat(woPackageDTO1).isNotEqualTo(woPackageDTO2);
+        woPackageDTO1.setId(null);
+        assertThat(woPackageDTO1).isNotEqualTo(woPackageDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(woPackageMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(woPackageMapper.fromId(null)).isNull();
     }
 }

@@ -4,6 +4,9 @@ import com.java.examples.SpringApplicarionApp;
 
 import com.java.examples.domain.WoPackageType;
 import com.java.examples.repository.WoPackageTypeRepository;
+import com.java.examples.service.WoPackageTypeService;
+import com.java.examples.service.dto.WoPackageTypeDTO;
+import com.java.examples.service.mapper.WoPackageTypeMapper;
 import com.java.examples.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -47,6 +50,12 @@ public class WoPackageTypeResourceIntTest {
     private WoPackageTypeRepository woPackageTypeRepository;
 
     @Autowired
+    private WoPackageTypeMapper woPackageTypeMapper;
+
+    @Autowired
+    private WoPackageTypeService woPackageTypeService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -68,7 +77,7 @@ public class WoPackageTypeResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WoPackageTypeResource woPackageTypeResource = new WoPackageTypeResource(woPackageTypeRepository);
+        final WoPackageTypeResource woPackageTypeResource = new WoPackageTypeResource(woPackageTypeService);
         this.restWoPackageTypeMockMvc = MockMvcBuilders.standaloneSetup(woPackageTypeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -100,9 +109,10 @@ public class WoPackageTypeResourceIntTest {
         int databaseSizeBeforeCreate = woPackageTypeRepository.findAll().size();
 
         // Create the WoPackageType
+        WoPackageTypeDTO woPackageTypeDTO = woPackageTypeMapper.toDto(woPackageType);
         restWoPackageTypeMockMvc.perform(post("/api/wo-package-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woPackageType)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageTypeDTO)))
             .andExpect(status().isCreated());
 
         // Validate the WoPackageType in the database
@@ -119,11 +129,12 @@ public class WoPackageTypeResourceIntTest {
 
         // Create the WoPackageType with an existing ID
         woPackageType.setId(1L);
+        WoPackageTypeDTO woPackageTypeDTO = woPackageTypeMapper.toDto(woPackageType);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restWoPackageTypeMockMvc.perform(post("/api/wo-package-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woPackageType)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageTypeDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the WoPackageType in the database
@@ -181,10 +192,11 @@ public class WoPackageTypeResourceIntTest {
         em.detach(updatedWoPackageType);
         updatedWoPackageType
             .name(UPDATED_NAME);
+        WoPackageTypeDTO woPackageTypeDTO = woPackageTypeMapper.toDto(updatedWoPackageType);
 
         restWoPackageTypeMockMvc.perform(put("/api/wo-package-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedWoPackageType)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageTypeDTO)))
             .andExpect(status().isOk());
 
         // Validate the WoPackageType in the database
@@ -200,11 +212,12 @@ public class WoPackageTypeResourceIntTest {
         int databaseSizeBeforeUpdate = woPackageTypeRepository.findAll().size();
 
         // Create the WoPackageType
+        WoPackageTypeDTO woPackageTypeDTO = woPackageTypeMapper.toDto(woPackageType);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restWoPackageTypeMockMvc.perform(put("/api/wo-package-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woPackageType)))
+            .content(TestUtil.convertObjectToJsonBytes(woPackageTypeDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the WoPackageType in the database
@@ -243,5 +256,28 @@ public class WoPackageTypeResourceIntTest {
         assertThat(woPackageType1).isNotEqualTo(woPackageType2);
         woPackageType1.setId(null);
         assertThat(woPackageType1).isNotEqualTo(woPackageType2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(WoPackageTypeDTO.class);
+        WoPackageTypeDTO woPackageTypeDTO1 = new WoPackageTypeDTO();
+        woPackageTypeDTO1.setId(1L);
+        WoPackageTypeDTO woPackageTypeDTO2 = new WoPackageTypeDTO();
+        assertThat(woPackageTypeDTO1).isNotEqualTo(woPackageTypeDTO2);
+        woPackageTypeDTO2.setId(woPackageTypeDTO1.getId());
+        assertThat(woPackageTypeDTO1).isEqualTo(woPackageTypeDTO2);
+        woPackageTypeDTO2.setId(2L);
+        assertThat(woPackageTypeDTO1).isNotEqualTo(woPackageTypeDTO2);
+        woPackageTypeDTO1.setId(null);
+        assertThat(woPackageTypeDTO1).isNotEqualTo(woPackageTypeDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(woPackageTypeMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(woPackageTypeMapper.fromId(null)).isNull();
     }
 }

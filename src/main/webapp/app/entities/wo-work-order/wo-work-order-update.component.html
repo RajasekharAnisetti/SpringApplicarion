@@ -236,23 +236,23 @@
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_shipTo">Ship To</label>
-                    <select class="form-control" id="field_shipTo" name="shipTo" [(ngModel)]="woWorkOrder.shipTo" >
+                    <select class="form-control" id="field_shipTo" name="shipTo" [(ngModel)]="woWorkOrder.shipToId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="shippingAddressOption.id === woWorkOrder.shipTo?.id ? woWorkOrder.shipTo : shippingAddressOption" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
+                        <option [ngValue]="shippingAddressOption.id" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_shipFrom">Ship From</label>
-                    <select class="form-control" id="field_shipFrom" name="shipFrom" [(ngModel)]="woWorkOrder.shipFrom" >
+                    <select class="form-control" id="field_shipFrom" name="shipFrom" [(ngModel)]="woWorkOrder.shipFromId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="shippingAddressOption.id === woWorkOrder.shipFrom?.id ? woWorkOrder.shipFrom : shippingAddressOption" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
+                        <option [ngValue]="shippingAddressOption.id" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_woPackageType">Wo Package Type</label>
-                    <select class="form-control" id="field_woPackageType" name="woPackageType" [(ngModel)]="woWorkOrder.woPackageType" >
+                    <select class="form-control" id="field_woPackageType" name="woPackageType" [(ngModel)]="woWorkOrder.woPackageTypeId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="woPackageTypeOption.id === woWorkOrder.woPackageType?.id ? woWorkOrder.woPackageType : woPackageTypeOption" *ngFor="let woPackageTypeOption of wopackagetypes; trackBy: trackWoPackageTypeById">{{woPackageTypeOption.id}}</option>
+                        <option [ngValue]="woPackageTypeOption.id" *ngFor="let woPackageTypeOption of wopackagetypes; trackBy: trackWoPackageTypeById">{{woPackageTypeOption.id}}</option>
                     </select>
                 </div>
             </div>

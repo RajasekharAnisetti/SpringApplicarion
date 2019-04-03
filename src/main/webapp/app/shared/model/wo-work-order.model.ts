@@ -1,7 +1,5 @@
 import { Moment } from 'moment';
 import { IWoPackage } from 'app/shared/model/wo-package.model';
-import { IShippingAddress } from 'app/shared/model/shipping-address.model';
-import { IWoPackageType } from 'app/shared/model/wo-package-type.model';
 
 export interface IWoWorkOrder {
     id?: number;
@@ -26,9 +24,9 @@ export interface IWoWorkOrder {
     jobSales?: string;
     woRequestType?: number;
     woPackages?: IWoPackage[];
-    shipTo?: IShippingAddress;
-    shipFrom?: IShippingAddress;
-    woPackageType?: IWoPackageType;
+    shipToId?: number;
+    shipFromId?: number;
+    woPackageTypeId?: number;
 }
 
 export class WoWorkOrder implements IWoWorkOrder {
@@ -55,8 +53,8 @@ export class WoWorkOrder implements IWoWorkOrder {
         public jobSales?: string,
         public woRequestType?: number,
         public woPackages?: IWoPackage[],
-        public shipTo?: IShippingAddress,
-        public shipFrom?: IShippingAddress,
-        public woPackageType?: IWoPackageType
+        public shipToId?: number,
+        public shipFromId?: number,
+        public woPackageTypeId?: number
     ) {}
 }

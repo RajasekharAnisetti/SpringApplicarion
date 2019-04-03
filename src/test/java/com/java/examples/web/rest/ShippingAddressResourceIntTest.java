@@ -4,6 +4,9 @@ import com.java.examples.SpringApplicarionApp;
 
 import com.java.examples.domain.ShippingAddress;
 import com.java.examples.repository.ShippingAddressRepository;
+import com.java.examples.service.ShippingAddressService;
+import com.java.examples.service.dto.ShippingAddressDTO;
+import com.java.examples.service.mapper.ShippingAddressMapper;
 import com.java.examples.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -80,6 +83,12 @@ public class ShippingAddressResourceIntTest {
     private ShippingAddressRepository shippingAddressRepository;
 
     @Autowired
+    private ShippingAddressMapper shippingAddressMapper;
+
+    @Autowired
+    private ShippingAddressService shippingAddressService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -101,7 +110,7 @@ public class ShippingAddressResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ShippingAddressResource shippingAddressResource = new ShippingAddressResource(shippingAddressRepository);
+        final ShippingAddressResource shippingAddressResource = new ShippingAddressResource(shippingAddressService);
         this.restShippingAddressMockMvc = MockMvcBuilders.standaloneSetup(shippingAddressResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -144,9 +153,10 @@ public class ShippingAddressResourceIntTest {
         int databaseSizeBeforeCreate = shippingAddressRepository.findAll().size();
 
         // Create the ShippingAddress
+        ShippingAddressDTO shippingAddressDTO = shippingAddressMapper.toDto(shippingAddress);
         restShippingAddressMockMvc.perform(post("/api/shipping-addresses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(shippingAddress)))
+            .content(TestUtil.convertObjectToJsonBytes(shippingAddressDTO)))
             .andExpect(status().isCreated());
 
         // Validate the ShippingAddress in the database
@@ -174,11 +184,12 @@ public class ShippingAddressResourceIntTest {
 
         // Create the ShippingAddress with an existing ID
         shippingAddress.setId(1L);
+        ShippingAddressDTO shippingAddressDTO = shippingAddressMapper.toDto(shippingAddress);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restShippingAddressMockMvc.perform(post("/api/shipping-addresses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(shippingAddress)))
+            .content(TestUtil.convertObjectToJsonBytes(shippingAddressDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ShippingAddress in the database
@@ -269,10 +280,11 @@ public class ShippingAddressResourceIntTest {
             .notifyRecipient(UPDATED_NOTIFY_RECIPIENT)
             .res(UPDATED_RES)
             .tailgate(UPDATED_TAILGATE);
+        ShippingAddressDTO shippingAddressDTO = shippingAddressMapper.toDto(updatedShippingAddress);
 
         restShippingAddressMockMvc.perform(put("/api/shipping-addresses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedShippingAddress)))
+            .content(TestUtil.convertObjectToJsonBytes(shippingAddressDTO)))
             .andExpect(status().isOk());
 
         // Validate the ShippingAddress in the database
@@ -299,11 +311,12 @@ public class ShippingAddressResourceIntTest {
         int databaseSizeBeforeUpdate = shippingAddressRepository.findAll().size();
 
         // Create the ShippingAddress
+        ShippingAddressDTO shippingAddressDTO = shippingAddressMapper.toDto(shippingAddress);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restShippingAddressMockMvc.perform(put("/api/shipping-addresses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(shippingAddress)))
+            .content(TestUtil.convertObjectToJsonBytes(shippingAddressDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the ShippingAddress in the database
@@ -342,5 +355,28 @@ public class ShippingAddressResourceIntTest {
         assertThat(shippingAddress1).isNotEqualTo(shippingAddress2);
         shippingAddress1.setId(null);
         assertThat(shippingAddress1).isNotEqualTo(shippingAddress2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(ShippingAddressDTO.class);
+        ShippingAddressDTO shippingAddressDTO1 = new ShippingAddressDTO();
+        shippingAddressDTO1.setId(1L);
+        ShippingAddressDTO shippingAddressDTO2 = new ShippingAddressDTO();
+        assertThat(shippingAddressDTO1).isNotEqualTo(shippingAddressDTO2);
+        shippingAddressDTO2.setId(shippingAddressDTO1.getId());
+        assertThat(shippingAddressDTO1).isEqualTo(shippingAddressDTO2);
+        shippingAddressDTO2.setId(2L);
+        assertThat(shippingAddressDTO1).isNotEqualTo(shippingAddressDTO2);
+        shippingAddressDTO1.setId(null);
+        assertThat(shippingAddressDTO1).isNotEqualTo(shippingAddressDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(shippingAddressMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(shippingAddressMapper.fromId(null)).isNull();
     }
 }

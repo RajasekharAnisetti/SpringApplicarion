@@ -49,18 +49,18 @@
                 <td>{{shippingAddress.res}}</td>
                 <td>{{shippingAddress.tailgate}}</td>
                 <td>
-                    <div *ngIf="shippingAddress.country">
-                        <a [routerLink]="['../country', shippingAddress.country?.id, 'view' ]" >{{shippingAddress.country?.id}}</a>
+                    <div *ngIf="shippingAddress.countryId">
+                        <a [routerLink]="['../country', shippingAddress.countryId , 'view' ]" >{{shippingAddress.countryId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="shippingAddress.province">
-                        <a [routerLink]="['../province', shippingAddress.province?.id, 'view' ]" >{{shippingAddress.province?.id}}</a>
+                    <div *ngIf="shippingAddress.provinceId">
+                        <a [routerLink]="['../province', shippingAddress.provinceId , 'view' ]" >{{shippingAddress.provinceId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="shippingAddress.city">
-                        <a [routerLink]="['../city', shippingAddress.city?.id, 'view' ]" >{{shippingAddress.city?.id}}</a>
+                    <div *ngIf="shippingAddress.cityId">
+                        <a [routerLink]="['../city', shippingAddress.cityId , 'view' ]" >{{shippingAddress.cityId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

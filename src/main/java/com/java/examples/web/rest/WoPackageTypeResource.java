@@ -1,8 +1,8 @@
 package com.java.examples.web.rest;
-import com.java.examples.domain.WoPackageType;
-import com.java.examples.repository.WoPackageTypeRepository;
+import com.java.examples.service.WoPackageTypeService;
 import com.java.examples.web.rest.errors.BadRequestAlertException;
 import com.java.examples.web.rest.util.HeaderUtil;
+import com.java.examples.service.dto.WoPackageTypeDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,26 +27,26 @@ public class WoPackageTypeResource {
 
     private static final String ENTITY_NAME = "woPackageType";
 
-    private final WoPackageTypeRepository woPackageTypeRepository;
+    private final WoPackageTypeService woPackageTypeService;
 
-    public WoPackageTypeResource(WoPackageTypeRepository woPackageTypeRepository) {
-        this.woPackageTypeRepository = woPackageTypeRepository;
+    public WoPackageTypeResource(WoPackageTypeService woPackageTypeService) {
+        this.woPackageTypeService = woPackageTypeService;
     }
 
     /**
      * POST  /wo-package-types : Create a new woPackageType.
      *
-     * @param woPackageType the woPackageType to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new woPackageType, or with status 400 (Bad Request) if the woPackageType has already an ID
+     * @param woPackageTypeDTO the woPackageTypeDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new woPackageTypeDTO, or with status 400 (Bad Request) if the woPackageType has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/wo-package-types")
-    public ResponseEntity<WoPackageType> createWoPackageType(@Valid @RequestBody WoPackageType woPackageType) throws URISyntaxException {
-        log.debug("REST request to save WoPackageType : {}", woPackageType);
-        if (woPackageType.getId() != null) {
+    public ResponseEntity<WoPackageTypeDTO> createWoPackageType(@Valid @RequestBody WoPackageTypeDTO woPackageTypeDTO) throws URISyntaxException {
+        log.debug("REST request to save WoPackageType : {}", woPackageTypeDTO);
+        if (woPackageTypeDTO.getId() != null) {
             throw new BadRequestAlertException("A new woPackageType cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        WoPackageType result = woPackageTypeRepository.save(woPackageType);
+        WoPackageTypeDTO result = woPackageTypeService.save(woPackageTypeDTO);
         return ResponseEntity.created(new URI("/api/wo-package-types/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -55,21 +55,21 @@ public class WoPackageTypeResource {
     /**
      * PUT  /wo-package-types : Updates an existing woPackageType.
      *
-     * @param woPackageType the woPackageType to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated woPackageType,
-     * or with status 400 (Bad Request) if the woPackageType is not valid,
-     * or with status 500 (Internal Server Error) if the woPackageType couldn't be updated
+     * @param woPackageTypeDTO the woPackageTypeDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated woPackageTypeDTO,
+     * or with status 400 (Bad Request) if the woPackageTypeDTO is not valid,
+     * or with status 500 (Internal Server Error) if the woPackageTypeDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/wo-package-types")
-    public ResponseEntity<WoPackageType> updateWoPackageType(@Valid @RequestBody WoPackageType woPackageType) throws URISyntaxException {
-        log.debug("REST request to update WoPackageType : {}", woPackageType);
-        if (woPackageType.getId() == null) {
+    public ResponseEntity<WoPackageTypeDTO> updateWoPackageType(@Valid @RequestBody WoPackageTypeDTO woPackageTypeDTO) throws URISyntaxException {
+        log.debug("REST request to update WoPackageType : {}", woPackageTypeDTO);
+        if (woPackageTypeDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        WoPackageType result = woPackageTypeRepository.save(woPackageType);
+        WoPackageTypeDTO result = woPackageTypeService.save(woPackageTypeDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, woPackageType.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, woPackageTypeDTO.getId().toString()))
             .body(result);
     }
 
@@ -79,34 +79,34 @@ public class WoPackageTypeResource {
      * @return the ResponseEntity with status 200 (OK) and the list of woPackageTypes in body
      */
     @GetMapping("/wo-package-types")
-    public List<WoPackageType> getAllWoPackageTypes() {
+    public List<WoPackageTypeDTO> getAllWoPackageTypes() {
         log.debug("REST request to get all WoPackageTypes");
-        return woPackageTypeRepository.findAll();
+        return woPackageTypeService.findAll();
     }
 
     /**
      * GET  /wo-package-types/:id : get the "id" woPackageType.
      *
-     * @param id the id of the woPackageType to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the woPackageType, or with status 404 (Not Found)
+     * @param id the id of the woPackageTypeDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the woPackageTypeDTO, or with status 404 (Not Found)
      */
     @GetMapping("/wo-package-types/{id}")
-    public ResponseEntity<WoPackageType> getWoPackageType(@PathVariable Long id) {
+    public ResponseEntity<WoPackageTypeDTO> getWoPackageType(@PathVariable Long id) {
         log.debug("REST request to get WoPackageType : {}", id);
-        Optional<WoPackageType> woPackageType = woPackageTypeRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(woPackageType);
+        Optional<WoPackageTypeDTO> woPackageTypeDTO = woPackageTypeService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(woPackageTypeDTO);
     }
 
     /**
      * DELETE  /wo-package-types/:id : delete the "id" woPackageType.
      *
-     * @param id the id of the woPackageType to delete
+     * @param id the id of the woPackageTypeDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/wo-package-types/{id}")
     public ResponseEntity<Void> deleteWoPackageType(@PathVariable Long id) {
         log.debug("REST request to delete WoPackageType : {}", id);
-        woPackageTypeRepository.deleteById(id);
+        woPackageTypeService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

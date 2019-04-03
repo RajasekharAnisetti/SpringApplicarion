@@ -34,9 +34,9 @@
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_country">Country</label>
-                    <select class="form-control" id="field_country" name="country" [(ngModel)]="province.country" >
+                    <select class="form-control" id="field_country" name="country" [(ngModel)]="province.countryId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="countryOption.id === province.country?.id ? province.country : countryOption" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.id}}</option>
+                        <option [ngValue]="countryOption.id" *ngFor="let countryOption of countries; trackBy: trackCountryById">{{countryOption.id}}</option>
                     </select>
                 </div>
             </div>
