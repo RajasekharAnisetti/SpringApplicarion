@@ -55,20 +55,20 @@
                 </dd>
                 <dt><span>Country</span></dt>
                 <dd>
-                    <div *ngIf="shippingAddress.country">
-                        <a [routerLink]="['/country', shippingAddress.country?.id, 'view']">{{shippingAddress.country?.id}}</a>
+                    <div *ngIf="shippingAddress.countryId">
+                        <a [routerLink]="['/country', shippingAddress.countryId, 'view']">{{shippingAddress.countryId}}</a>
                     </div>
                 </dd>
                 <dt><span>Province</span></dt>
                 <dd>
-                    <div *ngIf="shippingAddress.province">
-                        <a [routerLink]="['/province', shippingAddress.province?.id, 'view']">{{shippingAddress.province?.id}}</a>
+                    <div *ngIf="shippingAddress.provinceId">
+                        <a [routerLink]="['/province', shippingAddress.provinceId, 'view']">{{shippingAddress.provinceId}}</a>
                     </div>
                 </dd>
                 <dt><span>City</span></dt>
                 <dd>
-                    <div *ngIf="shippingAddress.city">
-                        <a [routerLink]="['/city', shippingAddress.city?.id, 'view']">{{shippingAddress.city?.id}}</a>
+                    <div *ngIf="shippingAddress.cityId">
+                        <a [routerLink]="['/city', shippingAddress.cityId, 'view']">{{shippingAddress.cityId}}</a>
                     </div>
                 </dd>
             </dl>

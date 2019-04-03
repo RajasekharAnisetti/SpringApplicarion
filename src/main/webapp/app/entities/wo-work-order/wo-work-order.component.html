@@ -65,18 +65,18 @@
                 <td>{{woWorkOrder.jobSales}}</td>
                 <td>{{woWorkOrder.woRequestType}}</td>
                 <td>
-                    <div *ngIf="woWorkOrder.shipTo">
-                        <a [routerLink]="['../shipping-address', woWorkOrder.shipTo?.id, 'view' ]" >{{woWorkOrder.shipTo?.id}}</a>
+                    <div *ngIf="woWorkOrder.shipToId">
+                        <a [routerLink]="['../shipping-address', woWorkOrder.shipToId , 'view' ]" >{{woWorkOrder.shipToId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="woWorkOrder.shipFrom">
-                        <a [routerLink]="['../shipping-address', woWorkOrder.shipFrom?.id, 'view' ]" >{{woWorkOrder.shipFrom?.id}}</a>
+                    <div *ngIf="woWorkOrder.shipFromId">
+                        <a [routerLink]="['../shipping-address', woWorkOrder.shipFromId , 'view' ]" >{{woWorkOrder.shipFromId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="woWorkOrder.woPackageType">
-                        <a [routerLink]="['../wo-package-type', woWorkOrder.woPackageType?.id, 'view' ]" >{{woWorkOrder.woPackageType?.id}}</a>
+                    <div *ngIf="woWorkOrder.woPackageTypeId">
+                        <a [routerLink]="['../wo-package-type', woWorkOrder.woPackageTypeId , 'view' ]" >{{woWorkOrder.woPackageTypeId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

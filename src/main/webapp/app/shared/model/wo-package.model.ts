@@ -1,6 +1,3 @@
-import { IWoPackageType } from 'app/shared/model/wo-package-type.model';
-import { IWoWorkOrder } from 'app/shared/model/wo-work-order.model';
-
 export interface IWoPackage {
     id?: number;
     description?: string;
@@ -16,8 +13,8 @@ export interface IWoPackage {
     position?: number;
     freightClass?: string;
     type?: string;
-    woPackageType?: IWoPackageType;
-    woWorkOrder?: IWoWorkOrder;
+    woPackageTypeId?: number;
+    woWorkOrderId?: number;
 }
 
 export class WoPackage implements IWoPackage {
@@ -36,7 +33,7 @@ export class WoPackage implements IWoPackage {
         public position?: number,
         public freightClass?: string,
         public type?: string,
-        public woPackageType?: IWoPackageType,
-        public woWorkOrder?: IWoWorkOrder
+        public woPackageTypeId?: number,
+        public woWorkOrderId?: number
     ) {}
 }

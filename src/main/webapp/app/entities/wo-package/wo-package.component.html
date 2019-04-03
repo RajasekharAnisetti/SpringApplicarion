@@ -50,13 +50,13 @@
                 <td>{{woPackage.freightClass}}</td>
                 <td>{{woPackage.type}}</td>
                 <td>
-                    <div *ngIf="woPackage.woPackageType">
-                        <a [routerLink]="['../wo-package-type', woPackage.woPackageType?.id, 'view' ]" >{{woPackage.woPackageType?.id}}</a>
+                    <div *ngIf="woPackage.woPackageTypeId">
+                        <a [routerLink]="['../wo-package-type', woPackage.woPackageTypeId , 'view' ]" >{{woPackage.woPackageTypeId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="woPackage.woWorkOrder">
-                        <a [routerLink]="['../wo-work-order', woPackage.woWorkOrder?.id, 'view' ]" >{{woPackage.woWorkOrder?.id}}</a>
+                    <div *ngIf="woPackage.woWorkOrderId">
+                        <a [routerLink]="['../wo-work-order', woPackage.woWorkOrderId , 'view' ]" >{{woPackage.woWorkOrderId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -1,8 +1,8 @@
 package com.java.examples.web.rest;
-import com.java.examples.domain.WoPackage;
-import com.java.examples.repository.WoPackageRepository;
+import com.java.examples.service.WoPackageService;
 import com.java.examples.web.rest.errors.BadRequestAlertException;
 import com.java.examples.web.rest.util.HeaderUtil;
+import com.java.examples.service.dto.WoPackageDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,26 +27,26 @@ public class WoPackageResource {
 
     private static final String ENTITY_NAME = "woPackage";
 
-    private final WoPackageRepository woPackageRepository;
+    private final WoPackageService woPackageService;
 
-    public WoPackageResource(WoPackageRepository woPackageRepository) {
-        this.woPackageRepository = woPackageRepository;
+    public WoPackageResource(WoPackageService woPackageService) {
+        this.woPackageService = woPackageService;
     }
 
     /**
      * POST  /wo-packages : Create a new woPackage.
      *
-     * @param woPackage the woPackage to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new woPackage, or with status 400 (Bad Request) if the woPackage has already an ID
+     * @param woPackageDTO the woPackageDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new woPackageDTO, or with status 400 (Bad Request) if the woPackage has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/wo-packages")
-    public ResponseEntity<WoPackage> createWoPackage(@Valid @RequestBody WoPackage woPackage) throws URISyntaxException {
-        log.debug("REST request to save WoPackage : {}", woPackage);
-        if (woPackage.getId() != null) {
+    public ResponseEntity<WoPackageDTO> createWoPackage(@Valid @RequestBody WoPackageDTO woPackageDTO) throws URISyntaxException {
+        log.debug("REST request to save WoPackage : {}", woPackageDTO);
+        if (woPackageDTO.getId() != null) {
             throw new BadRequestAlertException("A new woPackage cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        WoPackage result = woPackageRepository.save(woPackage);
+        WoPackageDTO result = woPackageService.save(woPackageDTO);
         return ResponseEntity.created(new URI("/api/wo-packages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -55,21 +55,21 @@ public class WoPackageResource {
     /**
      * PUT  /wo-packages : Updates an existing woPackage.
      *
-     * @param woPackage the woPackage to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated woPackage,
-     * or with status 400 (Bad Request) if the woPackage is not valid,
-     * or with status 500 (Internal Server Error) if the woPackage couldn't be updated
+     * @param woPackageDTO the woPackageDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated woPackageDTO,
+     * or with status 400 (Bad Request) if the woPackageDTO is not valid,
+     * or with status 500 (Internal Server Error) if the woPackageDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/wo-packages")
-    public ResponseEntity<WoPackage> updateWoPackage(@Valid @RequestBody WoPackage woPackage) throws URISyntaxException {
-        log.debug("REST request to update WoPackage : {}", woPackage);
-        if (woPackage.getId() == null) {
+    public ResponseEntity<WoPackageDTO> updateWoPackage(@Valid @RequestBody WoPackageDTO woPackageDTO) throws URISyntaxException {
+        log.debug("REST request to update WoPackage : {}", woPackageDTO);
+        if (woPackageDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        WoPackage result = woPackageRepository.save(woPackage);
+        WoPackageDTO result = woPackageService.save(woPackageDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, woPackage.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, woPackageDTO.getId().toString()))
             .body(result);
     }
 
@@ -79,34 +79,34 @@ public class WoPackageResource {
      * @return the ResponseEntity with status 200 (OK) and the list of woPackages in body
      */
     @GetMapping("/wo-packages")
-    public List<WoPackage> getAllWoPackages() {
+    public List<WoPackageDTO> getAllWoPackages() {
         log.debug("REST request to get all WoPackages");
-        return woPackageRepository.findAll();
+        return woPackageService.findAll();
     }
 
     /**
      * GET  /wo-packages/:id : get the "id" woPackage.
      *
-     * @param id the id of the woPackage to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the woPackage, or with status 404 (Not Found)
+     * @param id the id of the woPackageDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the woPackageDTO, or with status 404 (Not Found)
      */
     @GetMapping("/wo-packages/{id}")
-    public ResponseEntity<WoPackage> getWoPackage(@PathVariable Long id) {
+    public ResponseEntity<WoPackageDTO> getWoPackage(@PathVariable Long id) {
         log.debug("REST request to get WoPackage : {}", id);
-        Optional<WoPackage> woPackage = woPackageRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(woPackage);
+        Optional<WoPackageDTO> woPackageDTO = woPackageService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(woPackageDTO);
     }
 
     /**
      * DELETE  /wo-packages/:id : delete the "id" woPackage.
      *
-     * @param id the id of the woPackage to delete
+     * @param id the id of the woPackageDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/wo-packages/{id}")
     public ResponseEntity<Void> deleteWoPackage(@PathVariable Long id) {
         log.debug("REST request to delete WoPackage : {}", id);
-        woPackageRepository.deleteById(id);
+        woPackageService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

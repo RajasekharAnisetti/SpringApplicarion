@@ -25,8 +25,8 @@
                 <td><a [routerLink]="['/city', city.id, 'view' ]">{{city.id}}</a></td>
                 <td>{{city.city}}</td>
                 <td>
-                    <div *ngIf="city.province">
-                        <a [routerLink]="['../province', city.province?.id, 'view' ]" >{{city.province?.id}}</a>
+                    <div *ngIf="city.provinceId">
+                        <a [routerLink]="['../province', city.provinceId , 'view' ]" >{{city.provinceId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

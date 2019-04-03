@@ -15,8 +15,8 @@
                 </dd>
                 <dt><span>Country</span></dt>
                 <dd>
-                    <div *ngIf="province.country">
-                        <a [routerLink]="['/country', province.country?.id, 'view']">{{province.country?.id}}</a>
+                    <div *ngIf="province.countryId">
+                        <a [routerLink]="['/country', province.countryId, 'view']">{{province.countryId}}</a>
                     </div>
                 </dd>
             </dl>

@@ -4,6 +4,9 @@ import com.java.examples.SpringApplicarionApp;
 
 import com.java.examples.domain.WoWorkOrder;
 import com.java.examples.repository.WoWorkOrderRepository;
+import com.java.examples.service.WoWorkOrderService;
+import com.java.examples.service.dto.WoWorkOrderDTO;
+import com.java.examples.service.mapper.WoWorkOrderMapper;
 import com.java.examples.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -109,6 +112,12 @@ public class WoWorkOrderResourceIntTest {
     private WoWorkOrderRepository woWorkOrderRepository;
 
     @Autowired
+    private WoWorkOrderMapper woWorkOrderMapper;
+
+    @Autowired
+    private WoWorkOrderService woWorkOrderService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -130,7 +139,7 @@ public class WoWorkOrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final WoWorkOrderResource woWorkOrderResource = new WoWorkOrderResource(woWorkOrderRepository);
+        final WoWorkOrderResource woWorkOrderResource = new WoWorkOrderResource(woWorkOrderService);
         this.restWoWorkOrderMockMvc = MockMvcBuilders.standaloneSetup(woWorkOrderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -181,9 +190,10 @@ public class WoWorkOrderResourceIntTest {
         int databaseSizeBeforeCreate = woWorkOrderRepository.findAll().size();
 
         // Create the WoWorkOrder
+        WoWorkOrderDTO woWorkOrderDTO = woWorkOrderMapper.toDto(woWorkOrder);
         restWoWorkOrderMockMvc.perform(post("/api/wo-work-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woWorkOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(woWorkOrderDTO)))
             .andExpect(status().isCreated());
 
         // Validate the WoWorkOrder in the database
@@ -219,11 +229,12 @@ public class WoWorkOrderResourceIntTest {
 
         // Create the WoWorkOrder with an existing ID
         woWorkOrder.setId(1L);
+        WoWorkOrderDTO woWorkOrderDTO = woWorkOrderMapper.toDto(woWorkOrder);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restWoWorkOrderMockMvc.perform(post("/api/wo-work-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woWorkOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(woWorkOrderDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the WoWorkOrder in the database
@@ -338,10 +349,11 @@ public class WoWorkOrderResourceIntTest {
             .serviceType(UPDATED_SERVICE_TYPE)
             .jobSales(UPDATED_JOB_SALES)
             .woRequestType(UPDATED_WO_REQUEST_TYPE);
+        WoWorkOrderDTO woWorkOrderDTO = woWorkOrderMapper.toDto(updatedWoWorkOrder);
 
         restWoWorkOrderMockMvc.perform(put("/api/wo-work-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedWoWorkOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(woWorkOrderDTO)))
             .andExpect(status().isOk());
 
         // Validate the WoWorkOrder in the database
@@ -376,11 +388,12 @@ public class WoWorkOrderResourceIntTest {
         int databaseSizeBeforeUpdate = woWorkOrderRepository.findAll().size();
 
         // Create the WoWorkOrder
+        WoWorkOrderDTO woWorkOrderDTO = woWorkOrderMapper.toDto(woWorkOrder);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restWoWorkOrderMockMvc.perform(put("/api/wo-work-orders")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(woWorkOrder)))
+            .content(TestUtil.convertObjectToJsonBytes(woWorkOrderDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the WoWorkOrder in the database
@@ -419,5 +432,28 @@ public class WoWorkOrderResourceIntTest {
         assertThat(woWorkOrder1).isNotEqualTo(woWorkOrder2);
         woWorkOrder1.setId(null);
         assertThat(woWorkOrder1).isNotEqualTo(woWorkOrder2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(WoWorkOrderDTO.class);
+        WoWorkOrderDTO woWorkOrderDTO1 = new WoWorkOrderDTO();
+        woWorkOrderDTO1.setId(1L);
+        WoWorkOrderDTO woWorkOrderDTO2 = new WoWorkOrderDTO();
+        assertThat(woWorkOrderDTO1).isNotEqualTo(woWorkOrderDTO2);
+        woWorkOrderDTO2.setId(woWorkOrderDTO1.getId());
+        assertThat(woWorkOrderDTO1).isEqualTo(woWorkOrderDTO2);
+        woWorkOrderDTO2.setId(2L);
+        assertThat(woWorkOrderDTO1).isNotEqualTo(woWorkOrderDTO2);
+        woWorkOrderDTO1.setId(null);
+        assertThat(woWorkOrderDTO1).isNotEqualTo(woWorkOrderDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(woWorkOrderMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(woWorkOrderMapper.fromId(null)).isNull();
     }
 }

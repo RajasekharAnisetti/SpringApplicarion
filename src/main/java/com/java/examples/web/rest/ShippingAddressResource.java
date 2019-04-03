@@ -1,8 +1,8 @@
 package com.java.examples.web.rest;
-import com.java.examples.domain.ShippingAddress;
-import com.java.examples.repository.ShippingAddressRepository;
+import com.java.examples.service.ShippingAddressService;
 import com.java.examples.web.rest.errors.BadRequestAlertException;
 import com.java.examples.web.rest.util.HeaderUtil;
+import com.java.examples.service.dto.ShippingAddressDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,26 +27,26 @@ public class ShippingAddressResource {
 
     private static final String ENTITY_NAME = "shippingAddress";
 
-    private final ShippingAddressRepository shippingAddressRepository;
+    private final ShippingAddressService shippingAddressService;
 
-    public ShippingAddressResource(ShippingAddressRepository shippingAddressRepository) {
-        this.shippingAddressRepository = shippingAddressRepository;
+    public ShippingAddressResource(ShippingAddressService shippingAddressService) {
+        this.shippingAddressService = shippingAddressService;
     }
 
     /**
      * POST  /shipping-addresses : Create a new shippingAddress.
      *
-     * @param shippingAddress the shippingAddress to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new shippingAddress, or with status 400 (Bad Request) if the shippingAddress has already an ID
+     * @param shippingAddressDTO the shippingAddressDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new shippingAddressDTO, or with status 400 (Bad Request) if the shippingAddress has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/shipping-addresses")
-    public ResponseEntity<ShippingAddress> createShippingAddress(@Valid @RequestBody ShippingAddress shippingAddress) throws URISyntaxException {
-        log.debug("REST request to save ShippingAddress : {}", shippingAddress);
-        if (shippingAddress.getId() != null) {
+    public ResponseEntity<ShippingAddressDTO> createShippingAddress(@Valid @RequestBody ShippingAddressDTO shippingAddressDTO) throws URISyntaxException {
+        log.debug("REST request to save ShippingAddress : {}", shippingAddressDTO);
+        if (shippingAddressDTO.getId() != null) {
             throw new BadRequestAlertException("A new shippingAddress cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ShippingAddress result = shippingAddressRepository.save(shippingAddress);
+        ShippingAddressDTO result = shippingAddressService.save(shippingAddressDTO);
         return ResponseEntity.created(new URI("/api/shipping-addresses/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -55,21 +55,21 @@ public class ShippingAddressResource {
     /**
      * PUT  /shipping-addresses : Updates an existing shippingAddress.
      *
-     * @param shippingAddress the shippingAddress to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated shippingAddress,
-     * or with status 400 (Bad Request) if the shippingAddress is not valid,
-     * or with status 500 (Internal Server Error) if the shippingAddress couldn't be updated
+     * @param shippingAddressDTO the shippingAddressDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated shippingAddressDTO,
+     * or with status 400 (Bad Request) if the shippingAddressDTO is not valid,
+     * or with status 500 (Internal Server Error) if the shippingAddressDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/shipping-addresses")
-    public ResponseEntity<ShippingAddress> updateShippingAddress(@Valid @RequestBody ShippingAddress shippingAddress) throws URISyntaxException {
-        log.debug("REST request to update ShippingAddress : {}", shippingAddress);
-        if (shippingAddress.getId() == null) {
+    public ResponseEntity<ShippingAddressDTO> updateShippingAddress(@Valid @RequestBody ShippingAddressDTO shippingAddressDTO) throws URISyntaxException {
+        log.debug("REST request to update ShippingAddress : {}", shippingAddressDTO);
+        if (shippingAddressDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ShippingAddress result = shippingAddressRepository.save(shippingAddress);
+        ShippingAddressDTO result = shippingAddressService.save(shippingAddressDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, shippingAddress.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, shippingAddressDTO.getId().toString()))
             .body(result);
     }
 
@@ -79,34 +79,34 @@ public class ShippingAddressResource {
      * @return the ResponseEntity with status 200 (OK) and the list of shippingAddresses in body
      */
     @GetMapping("/shipping-addresses")
-    public List<ShippingAddress> getAllShippingAddresses() {
+    public List<ShippingAddressDTO> getAllShippingAddresses() {
         log.debug("REST request to get all ShippingAddresses");
-        return shippingAddressRepository.findAll();
+        return shippingAddressService.findAll();
     }
 
     /**
      * GET  /shipping-addresses/:id : get the "id" shippingAddress.
      *
-     * @param id the id of the shippingAddress to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the shippingAddress, or with status 404 (Not Found)
+     * @param id the id of the shippingAddressDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the shippingAddressDTO, or with status 404 (Not Found)
      */
     @GetMapping("/shipping-addresses/{id}")
-    public ResponseEntity<ShippingAddress> getShippingAddress(@PathVariable Long id) {
+    public ResponseEntity<ShippingAddressDTO> getShippingAddress(@PathVariable Long id) {
         log.debug("REST request to get ShippingAddress : {}", id);
-        Optional<ShippingAddress> shippingAddress = shippingAddressRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(shippingAddress);
+        Optional<ShippingAddressDTO> shippingAddressDTO = shippingAddressService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(shippingAddressDTO);
     }
 
     /**
      * DELETE  /shipping-addresses/:id : delete the "id" shippingAddress.
      *
-     * @param id the id of the shippingAddress to delete
+     * @param id the id of the shippingAddressDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/shipping-addresses/{id}")
     public ResponseEntity<Void> deleteShippingAddress(@PathVariable Long id) {
         log.debug("REST request to delete ShippingAddress : {}", id);
-        shippingAddressRepository.deleteById(id);
+        shippingAddressService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

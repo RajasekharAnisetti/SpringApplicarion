@@ -87,20 +87,20 @@
                 </dd>
                 <dt><span>Ship To</span></dt>
                 <dd>
-                    <div *ngIf="woWorkOrder.shipTo">
-                        <a [routerLink]="['/shipping-address', woWorkOrder.shipTo?.id, 'view']">{{woWorkOrder.shipTo?.id}}</a>
+                    <div *ngIf="woWorkOrder.shipToId">
+                        <a [routerLink]="['/shipping-address', woWorkOrder.shipToId, 'view']">{{woWorkOrder.shipToId}}</a>
                     </div>
                 </dd>
                 <dt><span>Ship From</span></dt>
                 <dd>
-                    <div *ngIf="woWorkOrder.shipFrom">
-                        <a [routerLink]="['/shipping-address', woWorkOrder.shipFrom?.id, 'view']">{{woWorkOrder.shipFrom?.id}}</a>
+                    <div *ngIf="woWorkOrder.shipFromId">
+                        <a [routerLink]="['/shipping-address', woWorkOrder.shipFromId, 'view']">{{woWorkOrder.shipFromId}}</a>
                     </div>
                 </dd>
                 <dt><span>Wo Package Type</span></dt>
                 <dd>
-                    <div *ngIf="woWorkOrder.woPackageType">
-                        <a [routerLink]="['/wo-package-type', woWorkOrder.woPackageType?.id, 'view']">{{woWorkOrder.woPackageType?.id}}</a>
+                    <div *ngIf="woWorkOrder.woPackageTypeId">
+                        <a [routerLink]="['/wo-package-type', woWorkOrder.woPackageTypeId, 'view']">{{woWorkOrder.woPackageTypeId}}</a>
                     </div>
                 </dd>
             </dl>

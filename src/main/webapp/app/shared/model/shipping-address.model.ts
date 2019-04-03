@@ -1,7 +1,3 @@
-import { ICountry } from 'app/shared/model/country.model';
-import { IProvince } from 'app/shared/model/province.model';
-import { ICity } from 'app/shared/model/city.model';
-
 export interface IShippingAddress {
     id?: number;
     attention?: string;
@@ -16,9 +12,9 @@ export interface IShippingAddress {
     notifyRecipient?: boolean;
     res?: boolean;
     tailgate?: boolean;
-    country?: ICountry;
-    province?: IProvince;
-    city?: ICity;
+    countryId?: number;
+    provinceId?: number;
+    cityId?: number;
 }
 
 export class ShippingAddress implements IShippingAddress {
@@ -36,9 +32,9 @@ export class ShippingAddress implements IShippingAddress {
         public notifyRecipient?: boolean,
         public res?: boolean,
         public tailgate?: boolean,
-        public country?: ICountry,
-        public province?: IProvince,
-        public city?: ICity
+        public countryId?: number,
+        public provinceId?: number,
+        public cityId?: number
     ) {
         this.confirmDelivery = this.confirmDelivery || false;
         this.notifyRecipient = this.notifyRecipient || false;
