@@ -1,0 +1,29 @@
+{
+    "name": "WoTransportModes",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "transportModes",
+            "otherEntityRelationshipName": "woTransportModes",
+            "relationshipName": "transportModes",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "woCustomsBrokerage",
+            "otherEntityRelationshipName": "woTransportModes",
+            "relationshipName": "woCustomsBrokerage",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190507070530",
+    "entityTableName": "wo_transport_modes",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

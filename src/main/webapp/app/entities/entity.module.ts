@@ -59,6 +59,22 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'wo-work-order',
                 loadChildren: './wo-work-order/wo-work-order.module#SpringApplicarionWoWorkOrderModule'
+            },
+            {
+                path: 'transport-modes',
+                loadChildren: './transport-modes/transport-modes.module#SpringApplicarionTransportModesModule'
+            },
+            {
+                path: 'wo-customs-brokerage',
+                loadChildren: './wo-customs-brokerage/wo-customs-brokerage.module#SpringApplicarionWoCustomsBrokerageModule'
+            },
+            {
+                path: 'wo-transport-modes',
+                loadChildren: './wo-transport-modes/wo-transport-modes.module#SpringApplicarionWoTransportModesModule'
+            },
+            {
+                path: 'wo-work-order',
+                loadChildren: './wo-work-order/wo-work-order.module#SpringApplicarionWoWorkOrderModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

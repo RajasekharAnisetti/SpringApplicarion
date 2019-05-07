@@ -2,29 +2,17 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <!--
         Added the constraints for entity WoWorkOrder.
     -->
     <changeSet id="20190325180934-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="ship_to_id"
+        <addForeignKeyConstraint baseColumnNames="wo_customs_brokerage_id"
                                  baseTableName="wo_work_order"
-                                 constraintName="fk_wo_work_order_ship_to_id"
+                                 constraintName="fk_wo_work_order_wo_customs_brokerage_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="shipping_address"/>
-
-        <addForeignKeyConstraint baseColumnNames="ship_from_id"
-                                 baseTableName="wo_work_order"
-                                 constraintName="fk_wo_work_order_ship_from_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="shipping_address"/>
-
-        <addForeignKeyConstraint baseColumnNames="wo_package_type_id"
-                                 baseTableName="wo_work_order"
-                                 constraintName="fk_wo_work_order_wo_package_type_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="wo_package_type"/>
+                                 referencedTableName="wo_customs_brokerage"/>
 
     </changeSet>
 </databaseChangeLog>

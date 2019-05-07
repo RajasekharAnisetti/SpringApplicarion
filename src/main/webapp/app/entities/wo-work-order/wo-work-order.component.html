@@ -34,10 +34,16 @@
             <th><span>Job Customer</span></th>
             <th><span>Service Type</span></th>
             <th><span>Job Sales</span></th>
+            <th><span>Job Deadline Time</span></th>
+            <th><span>Job Time Zone</span></th>
+            <th><span>Shipping Date</span></th>
+            <th><span>Shipping Time</span></th>
+            <th><span>Insurance Type</span></th>
+            <th><span>Ship Total Weight</span></th>
+            <th><span>Shipment Currency</span></th>
+            <th><span>Shipment Metric</span></th>
             <th><span>Wo Request Type</span></th>
-            <th><span>Ship To</span></th>
-            <th><span>Ship From</span></th>
-            <th><span>Wo Package Type</span></th>
+            <th><span>Wo Customs Brokerage</span></th>
             <th></th>
             </tr>
             </thead>
@@ -63,24 +69,22 @@
                 <td>{{woWorkOrder.jobCustomer}}</td>
                 <td>{{woWorkOrder.serviceType}}</td>
                 <td>{{woWorkOrder.jobSales}}</td>
+                <td>{{woWorkOrder.jobDeadlineTime}}</td>
+                <td>{{woWorkOrder.jobTimeZone}}</td>
+                <td>{{woWorkOrder.shippingDate | date:'mediumDate'}}</td>
+                <td>{{woWorkOrder.shippingTime}}</td>
+                <td>{{woWorkOrder.insuranceType}}</td>
+                <td>{{woWorkOrder.shipTotalWeight}}</td>
+                <td>{{woWorkOrder.shipmentCurrency}}</td>
+                <td>{{woWorkOrder.shipmentMetric}}</td>
                 <td>{{woWorkOrder.woRequestType}}</td>
                 <td>
-                    <div *ngIf="woWorkOrder.shipToId">
-                        <a [routerLink]="['../shipping-address', woWorkOrder.shipToId , 'view' ]" >{{woWorkOrder.shipToId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="woWorkOrder.shipFromId">
-                        <a [routerLink]="['../shipping-address', woWorkOrder.shipFromId , 'view' ]" >{{woWorkOrder.shipFromId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="woWorkOrder.woPackageTypeId">
-                        <a [routerLink]="['../wo-package-type', woWorkOrder.woPackageTypeId , 'view' ]" >{{woWorkOrder.woPackageTypeId}}</a>
+                    <div *ngIf="woWorkOrder.woCustomsBrokerageId">
+                        <a [routerLink]="['../wo-customs-brokerage', woWorkOrder.woCustomsBrokerageId , 'view' ]" >{{woWorkOrder.woCustomsBrokerageId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/wo-work-order', woWorkOrder.id, 'view' ]"
                                 class="btn btn-info btn-sm">

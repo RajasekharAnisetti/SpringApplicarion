@@ -81,26 +81,46 @@
                 <dd>
                     <span>{{woWorkOrder.jobSales}}</span>
                 </dd>
+                <dt><span>Job Deadline Time</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.jobDeadlineTime}}</span>
+                </dd>
+                <dt><span>Job Time Zone</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.jobTimeZone}}</span>
+                </dd>
+                <dt><span>Shipping Date</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.shippingDate}}</span>
+                </dd>
+                <dt><span>Shipping Time</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.shippingTime}}</span>
+                </dd>
+                <dt><span>Insurance Type</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.insuranceType}}</span>
+                </dd>
+                <dt><span>Ship Total Weight</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.shipTotalWeight}}</span>
+                </dd>
+                <dt><span>Shipment Currency</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.shipmentCurrency}}</span>
+                </dd>
+                <dt><span>Shipment Metric</span></dt>
+                <dd>
+                    <span>{{woWorkOrder.shipmentMetric}}</span>
+                </dd>
                 <dt><span>Wo Request Type</span></dt>
                 <dd>
                     <span>{{woWorkOrder.woRequestType}}</span>
                 </dd>
-                <dt><span>Ship To</span></dt>
+                <dt><span>Wo Customs Brokerage</span></dt>
                 <dd>
-                    <div *ngIf="woWorkOrder.shipToId">
-                        <a [routerLink]="['/shipping-address', woWorkOrder.shipToId, 'view']">{{woWorkOrder.shipToId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Ship From</span></dt>
-                <dd>
-                    <div *ngIf="woWorkOrder.shipFromId">
-                        <a [routerLink]="['/shipping-address', woWorkOrder.shipFromId, 'view']">{{woWorkOrder.shipFromId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Wo Package Type</span></dt>
-                <dd>
-                    <div *ngIf="woWorkOrder.woPackageTypeId">
-                        <a [routerLink]="['/wo-package-type', woWorkOrder.woPackageTypeId, 'view']">{{woWorkOrder.woPackageTypeId}}</a>
+                    <div *ngIf="woWorkOrder.woCustomsBrokerageId">
+                        <a [routerLink]="['/wo-customs-brokerage', woWorkOrder.woCustomsBrokerageId, 'view']">{{woWorkOrder.woCustomsBrokerageId}}</a>
                     </div>
                 </dd>
             </dl>
