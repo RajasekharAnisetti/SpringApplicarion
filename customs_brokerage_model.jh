@@ -1,0 +1,73 @@
+entity TransportModes {    
+  name String maxlength(255)    
+}
+
+entity WoCustomsBrokerage { 
+   monthlyImportShipment String maxlength(255)
+   monthlyExportShipment String maxlength(255)
+   shipmentValue String maxlength(255)
+   productInfo String maxlength(255)
+   
+}
+
+entity WoTransportModes {
+}
+
+entity WoWorkOrder {
+  
+  customsBrokerName String maxlength(255) 
+  customsContactName String maxlength(255) 
+  customsCurrency String maxlength(255) 
+  customsPhoneNumber String maxlength(255)    
+  customsValue Double   
+  fromAirportCode String maxlength(255) 
+  fromLocationType Integer max(11) 
+  jobContentDescr String maxlength(255) 
+  shipQuantity Integer max(11)
+  jobOriginalCost Integer max(11) 
+  quotedAmount String maxlength(255) 
+  assignTo String maxlength(255)
+  toCompany String maxlength(255)
+  toLocationType Integer max(11)
+  
+  dateCreated ZonedDateTime
+  jobNumber String maxlength(255)
+  
+  
+  jobCustomer String maxlength(255)
+  serviceType Long
+  jobSales String maxlength(255) 
+  jobDeadlineTime Long
+  jobTimeZone Long
+  shippingDate LocalDate
+  shippingTime Long
+  insuranceType Long
+  
+  shipTotalWeight String maxlength(255) 
+  shipmentCurrency String maxlength(255)
+  shipmentMetric String maxlength(255)
+  woRequestType Integer max(11)
+  
+  
+}
+
+relationship ManyToOne {
+ WoTransportModes to TransportModes 
+}
+
+relationship OneToMany {
+WoCustomsBrokerage to WoTransportModes
+}
+relationship OneToOne {
+   WoWorkOrder to WoCustomsBrokerage
+}
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+//paginate Job with pagination
+dto * with mapstruct
+// Set service options to all except few
+service all with serviceImpl
+
+
+
