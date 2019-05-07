@@ -142,6 +142,50 @@
             "fieldValidateRulesMaxlength": 255
         },
         {
+            "fieldName": "jobDeadlineTime",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "jobTimeZone",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "shippingDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "shippingTime",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "insuranceType",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "shipTotalWeight",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "shipmentCurrency",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "shipmentMetric",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
             "fieldName": "woRequestType",
             "fieldType": "Integer",
             "fieldValidateRules": [
@@ -152,31 +196,12 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "woPackage",
+            "relationshipType": "one-to-one",
+            "otherEntityName": "woCustomsBrokerage",
             "otherEntityRelationshipName": "woWorkOrder",
-            "relationshipName": "woPackage"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "shippingAddress",
-            "otherEntityRelationshipName": "woWorkOrder",
-            "relationshipName": "shipTo",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "shippingAddress",
-            "otherEntityRelationshipName": "woWorkOrder",
-            "relationshipName": "shipFrom",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "woPackageType",
-            "otherEntityRelationshipName": "woWorkOrder",
-            "relationshipName": "woPackageType",
-            "otherEntityField": "id"
+            "relationshipName": "woCustomsBrokerage",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20190325180934",

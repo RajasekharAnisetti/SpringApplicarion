@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Service Implementation for managing WoWorkOrder.
+ * Service Implementation for managing {@link WoWorkOrder}.
  */
 @Service
 @Transactional
@@ -37,8 +37,8 @@ public class WoWorkOrderServiceImpl implements WoWorkOrderService {
     /**
      * Save a woWorkOrder.
      *
-     * @param woWorkOrderDTO the entity to save
-     * @return the persisted entity
+     * @param woWorkOrderDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public WoWorkOrderDTO save(WoWorkOrderDTO woWorkOrderDTO) {
@@ -51,7 +51,7 @@ public class WoWorkOrderServiceImpl implements WoWorkOrderService {
     /**
      * Get all the woWorkOrders.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -66,8 +66,8 @@ public class WoWorkOrderServiceImpl implements WoWorkOrderService {
     /**
      * Get one woWorkOrder by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -80,7 +80,7 @@ public class WoWorkOrderServiceImpl implements WoWorkOrderService {
     /**
      * Delete the woWorkOrder by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

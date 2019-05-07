@@ -6,20 +6,15 @@ import com.java.examples.service.dto.WoWorkOrderDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity WoWorkOrder and its DTO WoWorkOrderDTO.
+ * Mapper for the entity {@link WoWorkOrder} and its DTO {@link WoWorkOrderDTO}.
  */
-@Mapper(componentModel = "spring", uses = {ShippingAddressMapper.class, WoPackageTypeMapper.class})
+@Mapper(componentModel = "spring", uses = {WoCustomsBrokerageMapper.class})
 public interface WoWorkOrderMapper extends EntityMapper<WoWorkOrderDTO, WoWorkOrder> {
 
-    @Mapping(source = "shipTo.id", target = "shipToId")
-    @Mapping(source = "shipFrom.id", target = "shipFromId")
-    @Mapping(source = "woPackageType.id", target = "woPackageTypeId")
+    @Mapping(source = "woCustomsBrokerage.id", target = "woCustomsBrokerageId")
     WoWorkOrderDTO toDto(WoWorkOrder woWorkOrder);
 
-    @Mapping(target = "woPackages", ignore = true)
-    @Mapping(source = "shipToId", target = "shipTo")
-    @Mapping(source = "shipFromId", target = "shipFrom")
-    @Mapping(source = "woPackageTypeId", target = "woPackageType")
+    @Mapping(source = "woCustomsBrokerageId", target = "woCustomsBrokerage")
     WoWorkOrder toEntity(WoWorkOrderDTO woWorkOrderDTO);
 
     default WoWorkOrder fromId(Long id) {

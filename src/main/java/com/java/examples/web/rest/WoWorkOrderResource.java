@@ -1,11 +1,14 @@
 package com.java.examples.web.rest;
+
 import com.java.examples.service.WoWorkOrderService;
 import com.java.examples.web.rest.errors.BadRequestAlertException;
-import com.java.examples.web.rest.util.HeaderUtil;
 import com.java.examples.service.dto.WoWorkOrderDTO;
+
+import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing WoWorkOrder.
+ * REST controller for managing {@link com.java.examples.domain.WoWorkOrder}.
  */
 @RestController
 @RequestMapping("/api")
@@ -27,6 +30,9 @@ public class WoWorkOrderResource {
 
     private static final String ENTITY_NAME = "woWorkOrder";
 
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
+
     private final WoWorkOrderService woWorkOrderService;
 
     public WoWorkOrderResource(WoWorkOrderService woWorkOrderService) {
@@ -34,11 +40,11 @@ public class WoWorkOrderResource {
     }
 
     /**
-     * POST  /wo-work-orders : Create a new woWorkOrder.
+     * {@code POST  /wo-work-orders} : Create a new woWorkOrder.
      *
-     * @param woWorkOrderDTO the woWorkOrderDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new woWorkOrderDTO, or with status 400 (Bad Request) if the woWorkOrder has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param woWorkOrderDTO the woWorkOrderDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new woWorkOrderDTO, or with status {@code 400 (Bad Request)} if the woWorkOrder has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/wo-work-orders")
     public ResponseEntity<WoWorkOrderDTO> createWoWorkOrder(@Valid @RequestBody WoWorkOrderDTO woWorkOrderDTO) throws URISyntaxException {
@@ -48,18 +54,18 @@ public class WoWorkOrderResource {
         }
         WoWorkOrderDTO result = woWorkOrderService.save(woWorkOrderDTO);
         return ResponseEntity.created(new URI("/api/wo-work-orders/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /wo-work-orders : Updates an existing woWorkOrder.
+     * {@code PUT  /wo-work-orders} : Updates an existing woWorkOrder.
      *
-     * @param woWorkOrderDTO the woWorkOrderDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated woWorkOrderDTO,
-     * or with status 400 (Bad Request) if the woWorkOrderDTO is not valid,
-     * or with status 500 (Internal Server Error) if the woWorkOrderDTO couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param woWorkOrderDTO the woWorkOrderDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated woWorkOrderDTO,
+     * or with status {@code 400 (Bad Request)} if the woWorkOrderDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the woWorkOrderDTO couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/wo-work-orders")
     public ResponseEntity<WoWorkOrderDTO> updateWoWorkOrder(@Valid @RequestBody WoWorkOrderDTO woWorkOrderDTO) throws URISyntaxException {
@@ -69,14 +75,14 @@ public class WoWorkOrderResource {
         }
         WoWorkOrderDTO result = woWorkOrderService.save(woWorkOrderDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, woWorkOrderDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, woWorkOrderDTO.getId().toString()))
             .body(result);
     }
 
     /**
-     * GET  /wo-work-orders : get all the woWorkOrders.
+     * {@code GET  /wo-work-orders} : get all the woWorkOrders.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of woWorkOrders in body
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of woWorkOrders in body.
      */
     @GetMapping("/wo-work-orders")
     public List<WoWorkOrderDTO> getAllWoWorkOrders() {
@@ -85,10 +91,10 @@ public class WoWorkOrderResource {
     }
 
     /**
-     * GET  /wo-work-orders/:id : get the "id" woWorkOrder.
+     * {@code GET  /wo-work-orders/:id} : get the "id" woWorkOrder.
      *
-     * @param id the id of the woWorkOrderDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the woWorkOrderDTO, or with status 404 (Not Found)
+     * @param id the id of the woWorkOrderDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the woWorkOrderDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/wo-work-orders/{id}")
     public ResponseEntity<WoWorkOrderDTO> getWoWorkOrder(@PathVariable Long id) {
@@ -98,15 +104,15 @@ public class WoWorkOrderResource {
     }
 
     /**
-     * DELETE  /wo-work-orders/:id : delete the "id" woWorkOrder.
+     * {@code DELETE  /wo-work-orders/:id} : delete the "id" woWorkOrder.
      *
-     * @param id the id of the woWorkOrderDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
+     * @param id the id of the woWorkOrderDTO to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/wo-work-orders/{id}")
     public ResponseEntity<Void> deleteWoWorkOrder(@PathVariable Long id) {
         log.debug("REST request to delete WoWorkOrder : {}", id);
         woWorkOrderService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

@@ -1,21 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-wo-work-order-heading">Create or edit a Wo Work Order</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!woWorkOrder.id">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="woWorkOrder.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_customsBrokerName">Customs Broker Name</label>
                     <input type="text" class="form-control" name="customsBrokerName" id="field_customsBrokerName"
-                        [(ngModel)]="woWorkOrder.customsBrokerName" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.customsBrokerName?.dirty && editForm.controls.customsBrokerName?.invalid)">
+                           formControlName="customsBrokerName"/>
+                    <div *ngIf="editForm.get('customsBrokerName').invalid && (editForm.get('customsBrokerName').dirty || editForm.get('customsBrokerName').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.customsBrokerName?.errors?.maxlength">
+                               *ngIf="editForm.get('customsBrokerName').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -23,10 +23,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_customsContactName">Customs Contact Name</label>
                     <input type="text" class="form-control" name="customsContactName" id="field_customsContactName"
-                        [(ngModel)]="woWorkOrder.customsContactName" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.customsContactName?.dirty && editForm.controls.customsContactName?.invalid)">
+                           formControlName="customsContactName"/>
+                    <div *ngIf="editForm.get('customsContactName').invalid && (editForm.get('customsContactName').dirty || editForm.get('customsContactName').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.customsContactName?.errors?.maxlength">
+                               *ngIf="editForm.get('customsContactName').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -34,10 +34,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_customsCurrency">Customs Currency</label>
                     <input type="text" class="form-control" name="customsCurrency" id="field_customsCurrency"
-                        [(ngModel)]="woWorkOrder.customsCurrency" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.customsCurrency?.dirty && editForm.controls.customsCurrency?.invalid)">
+                           formControlName="customsCurrency"/>
+                    <div *ngIf="editForm.get('customsCurrency').invalid && (editForm.get('customsCurrency').dirty || editForm.get('customsCurrency').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.customsCurrency?.errors?.maxlength">
+                               *ngIf="editForm.get('customsCurrency').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -45,10 +45,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_customsPhoneNumber">Customs Phone Number</label>
                     <input type="text" class="form-control" name="customsPhoneNumber" id="field_customsPhoneNumber"
-                        [(ngModel)]="woWorkOrder.customsPhoneNumber" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.customsPhoneNumber?.dirty && editForm.controls.customsPhoneNumber?.invalid)">
+                           formControlName="customsPhoneNumber"/>
+                    <div *ngIf="editForm.get('customsPhoneNumber').invalid && (editForm.get('customsPhoneNumber').dirty || editForm.get('customsPhoneNumber').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.customsPhoneNumber?.errors?.maxlength">
+                               *ngIf="editForm.get('customsPhoneNumber').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -56,15 +56,15 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_customsValue">Customs Value</label>
                     <input type="number" class="form-control" name="customsValue" id="field_customsValue"
-                        [(ngModel)]="woWorkOrder.customsValue" />
+                           formControlName="customsValue"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_fromAirportCode">From Airport Code</label>
                     <input type="text" class="form-control" name="fromAirportCode" id="field_fromAirportCode"
-                        [(ngModel)]="woWorkOrder.fromAirportCode" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.fromAirportCode?.dirty && editForm.controls.fromAirportCode?.invalid)">
+                           formControlName="fromAirportCode"/>
+                    <div *ngIf="editForm.get('fromAirportCode').invalid && (editForm.get('fromAirportCode').dirty || editForm.get('fromAirportCode').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.fromAirportCode?.errors?.maxlength">
+                               *ngIf="editForm.get('fromAirportCode').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -72,14 +72,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_fromLocationType">From Location Type</label>
                     <input type="number" class="form-control" name="fromLocationType" id="field_fromLocationType"
-                        [(ngModel)]="woWorkOrder.fromLocationType" max="11" jhiMax="11"/>
-                    <div [hidden]="!(editForm.controls.fromLocationType?.dirty && editForm.controls.fromLocationType?.invalid)">
+                           formControlName="fromLocationType"/>
+                    <div *ngIf="editForm.get('fromLocationType').invalid && (editForm.get('fromLocationType').dirty || editForm.get('fromLocationType').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.fromLocationType?.errors?.max">
+                               *ngIf="editForm.get('fromLocationType').errors.max">
                             This field cannot be more than 11.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.fromLocationType?.errors?.number">
+                            [hidden]="!editForm.get('fromLocationType')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -87,10 +87,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_jobContentDescr">Job Content Descr</label>
                     <input type="text" class="form-control" name="jobContentDescr" id="field_jobContentDescr"
-                        [(ngModel)]="woWorkOrder.jobContentDescr" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.jobContentDescr?.dirty && editForm.controls.jobContentDescr?.invalid)">
+                           formControlName="jobContentDescr"/>
+                    <div *ngIf="editForm.get('jobContentDescr').invalid && (editForm.get('jobContentDescr').dirty || editForm.get('jobContentDescr').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.jobContentDescr?.errors?.maxlength">
+                               *ngIf="editForm.get('jobContentDescr').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -98,14 +98,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_shipQuantity">Ship Quantity</label>
                     <input type="number" class="form-control" name="shipQuantity" id="field_shipQuantity"
-                        [(ngModel)]="woWorkOrder.shipQuantity" max="11" jhiMax="11"/>
-                    <div [hidden]="!(editForm.controls.shipQuantity?.dirty && editForm.controls.shipQuantity?.invalid)">
+                           formControlName="shipQuantity"/>
+                    <div *ngIf="editForm.get('shipQuantity').invalid && (editForm.get('shipQuantity').dirty || editForm.get('shipQuantity').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.shipQuantity?.errors?.max">
+                               *ngIf="editForm.get('shipQuantity').errors.max">
                             This field cannot be more than 11.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.shipQuantity?.errors?.number">
+                            [hidden]="!editForm.get('shipQuantity')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -113,14 +113,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_jobOriginalCost">Job Original Cost</label>
                     <input type="number" class="form-control" name="jobOriginalCost" id="field_jobOriginalCost"
-                        [(ngModel)]="woWorkOrder.jobOriginalCost" max="11" jhiMax="11"/>
-                    <div [hidden]="!(editForm.controls.jobOriginalCost?.dirty && editForm.controls.jobOriginalCost?.invalid)">
+                           formControlName="jobOriginalCost"/>
+                    <div *ngIf="editForm.get('jobOriginalCost').invalid && (editForm.get('jobOriginalCost').dirty || editForm.get('jobOriginalCost').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.jobOriginalCost?.errors?.max">
+                               *ngIf="editForm.get('jobOriginalCost').errors.max">
                             This field cannot be more than 11.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.jobOriginalCost?.errors?.number">
+                            [hidden]="!editForm.get('jobOriginalCost')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -128,10 +128,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_quotedAmount">Quoted Amount</label>
                     <input type="text" class="form-control" name="quotedAmount" id="field_quotedAmount"
-                        [(ngModel)]="woWorkOrder.quotedAmount" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.quotedAmount?.dirty && editForm.controls.quotedAmount?.invalid)">
+                           formControlName="quotedAmount"/>
+                    <div *ngIf="editForm.get('quotedAmount').invalid && (editForm.get('quotedAmount').dirty || editForm.get('quotedAmount').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.quotedAmount?.errors?.maxlength">
+                               *ngIf="editForm.get('quotedAmount').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -139,10 +139,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_assignTo">Assign To</label>
                     <input type="text" class="form-control" name="assignTo" id="field_assignTo"
-                        [(ngModel)]="woWorkOrder.assignTo" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.assignTo?.dirty && editForm.controls.assignTo?.invalid)">
+                           formControlName="assignTo"/>
+                    <div *ngIf="editForm.get('assignTo').invalid && (editForm.get('assignTo').dirty || editForm.get('assignTo').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.assignTo?.errors?.maxlength">
+                               *ngIf="editForm.get('assignTo').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -150,10 +150,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_toCompany">To Company</label>
                     <input type="text" class="form-control" name="toCompany" id="field_toCompany"
-                        [(ngModel)]="woWorkOrder.toCompany" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.toCompany?.dirty && editForm.controls.toCompany?.invalid)">
+                           formControlName="toCompany"/>
+                    <div *ngIf="editForm.get('toCompany').invalid && (editForm.get('toCompany').dirty || editForm.get('toCompany').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.toCompany?.errors?.maxlength">
+                               *ngIf="editForm.get('toCompany').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -161,14 +161,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_toLocationType">To Location Type</label>
                     <input type="number" class="form-control" name="toLocationType" id="field_toLocationType"
-                        [(ngModel)]="woWorkOrder.toLocationType" max="11" jhiMax="11"/>
-                    <div [hidden]="!(editForm.controls.toLocationType?.dirty && editForm.controls.toLocationType?.invalid)">
+                           formControlName="toLocationType"/>
+                    <div *ngIf="editForm.get('toLocationType').invalid && (editForm.get('toLocationType').dirty || editForm.get('toLocationType').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.toLocationType?.errors?.max">
+                               *ngIf="editForm.get('toLocationType').errors.max">
                             This field cannot be more than 11.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.toLocationType?.errors?.number">
+                            [hidden]="!editForm.get('toLocationType')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -176,17 +176,16 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_dateCreated">Date Created</label>
                     <div class="d-flex">
-                        <input id="field_dateCreated" type="datetime-local" class="form-control" name="dateCreated" [(ngModel)]="dateCreated" placeholder="YYYY-MM-DD HH:mm"
-                        />
+                        <input id="field_dateCreated" type="datetime-local" class="form-control" name="dateCreated" formControlName="dateCreated" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_jobNumber">Job Number</label>
                     <input type="text" class="form-control" name="jobNumber" id="field_jobNumber"
-                        [(ngModel)]="woWorkOrder.jobNumber" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.jobNumber?.dirty && editForm.controls.jobNumber?.invalid)">
+                           formControlName="jobNumber"/>
+                    <div *ngIf="editForm.get('jobNumber').invalid && (editForm.get('jobNumber').dirty || editForm.get('jobNumber').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.jobNumber?.errors?.maxlength">
+                               *ngIf="editForm.get('jobNumber').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -194,10 +193,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_jobCustomer">Job Customer</label>
                     <input type="text" class="form-control" name="jobCustomer" id="field_jobCustomer"
-                        [(ngModel)]="woWorkOrder.jobCustomer" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.jobCustomer?.dirty && editForm.controls.jobCustomer?.invalid)">
+                           formControlName="jobCustomer"/>
+                    <div *ngIf="editForm.get('jobCustomer').invalid && (editForm.get('jobCustomer').dirty || editForm.get('jobCustomer').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.jobCustomer?.errors?.maxlength">
+                               *ngIf="editForm.get('jobCustomer').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -205,15 +204,77 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_serviceType">Service Type</label>
                     <input type="number" class="form-control" name="serviceType" id="field_serviceType"
-                        [(ngModel)]="woWorkOrder.serviceType" />
+                           formControlName="serviceType"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_jobSales">Job Sales</label>
                     <input type="text" class="form-control" name="jobSales" id="field_jobSales"
-                        [(ngModel)]="woWorkOrder.jobSales" maxlength="255"/>
-                    <div [hidden]="!(editForm.controls.jobSales?.dirty && editForm.controls.jobSales?.invalid)">
+                           formControlName="jobSales"/>
+                    <div *ngIf="editForm.get('jobSales').invalid && (editForm.get('jobSales').dirty || editForm.get('jobSales').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.jobSales?.errors?.maxlength">
+                               *ngIf="editForm.get('jobSales').errors.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_jobDeadlineTime">Job Deadline Time</label>
+                    <input type="number" class="form-control" name="jobDeadlineTime" id="field_jobDeadlineTime"
+                           formControlName="jobDeadlineTime"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_jobTimeZone">Job Time Zone</label>
+                    <input type="number" class="form-control" name="jobTimeZone" id="field_jobTimeZone"
+                           formControlName="jobTimeZone"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shippingDate">Shipping Date</label>
+                    <div class="input-group">
+                        <input id="field_shippingDate" type="text" class="form-control" name="shippingDate" ngbDatepicker  #shippingDateDp="ngbDatepicker" formControlName="shippingDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="shippingDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shippingTime">Shipping Time</label>
+                    <input type="number" class="form-control" name="shippingTime" id="field_shippingTime"
+                           formControlName="shippingTime"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_insuranceType">Insurance Type</label>
+                    <input type="number" class="form-control" name="insuranceType" id="field_insuranceType"
+                           formControlName="insuranceType"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shipTotalWeight">Ship Total Weight</label>
+                    <input type="text" class="form-control" name="shipTotalWeight" id="field_shipTotalWeight"
+                           formControlName="shipTotalWeight"/>
+                    <div *ngIf="editForm.get('shipTotalWeight').invalid && (editForm.get('shipTotalWeight').dirty || editForm.get('shipTotalWeight').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shipTotalWeight').errors.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shipmentCurrency">Shipment Currency</label>
+                    <input type="text" class="form-control" name="shipmentCurrency" id="field_shipmentCurrency"
+                           formControlName="shipmentCurrency"/>
+                    <div *ngIf="editForm.get('shipmentCurrency').invalid && (editForm.get('shipmentCurrency').dirty || editForm.get('shipmentCurrency').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shipmentCurrency').errors.maxlength">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_shipmentMetric">Shipment Metric</label>
+                    <input type="text" class="form-control" name="shipmentMetric" id="field_shipmentMetric"
+                           formControlName="shipmentMetric"/>
+                    <div *ngIf="editForm.get('shipmentMetric').invalid && (editForm.get('shipmentMetric').dirty || editForm.get('shipmentMetric').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('shipmentMetric').errors.maxlength">
                         This field cannot be longer than 255 characters.
                         </small>
                     </div>
@@ -221,38 +282,24 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_woRequestType">Wo Request Type</label>
                     <input type="number" class="form-control" name="woRequestType" id="field_woRequestType"
-                        [(ngModel)]="woWorkOrder.woRequestType" max="11" jhiMax="11"/>
-                    <div [hidden]="!(editForm.controls.woRequestType?.dirty && editForm.controls.woRequestType?.invalid)">
+                           formControlName="woRequestType"/>
+                    <div *ngIf="editForm.get('woRequestType').invalid && (editForm.get('woRequestType').dirty || editForm.get('woRequestType').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.woRequestType?.errors?.max">
+                               *ngIf="editForm.get('woRequestType').errors.max">
                             This field cannot be more than 11.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.woRequestType?.errors?.number">
+                            [hidden]="!editForm.get('woRequestType')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_shipTo">Ship To</label>
-                    <select class="form-control" id="field_shipTo" name="shipTo" [(ngModel)]="woWorkOrder.shipToId" >
+                    <label class="form-control-label" for="field_woCustomsBrokerage">Wo Customs Brokerage</label>
+                    <select class="form-control" id="field_woCustomsBrokerage" name="woCustomsBrokerage" formControlName="woCustomsBrokerageId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="shippingAddressOption.id" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_shipFrom">Ship From</label>
-                    <select class="form-control" id="field_shipFrom" name="shipFrom" [(ngModel)]="woWorkOrder.shipFromId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="shippingAddressOption.id" *ngFor="let shippingAddressOption of shippingaddresses; trackBy: trackShippingAddressById">{{shippingAddressOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_woPackageType">Wo Package Type</label>
-                    <select class="form-control" id="field_woPackageType" name="woPackageType" [(ngModel)]="woWorkOrder.woPackageTypeId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="woPackageTypeOption.id" *ngFor="let woPackageTypeOption of wopackagetypes; trackBy: trackWoPackageTypeById">{{woPackageTypeOption.id}}</option>
+                        <option [ngValue]="woCustomsBrokerageOption.id" *ngFor="let woCustomsBrokerageOption of wocustomsbrokerages; trackBy: trackWoCustomsBrokerageById">{{woCustomsBrokerageOption.id}}</option>
                     </select>
                 </div>
             </div>
@@ -260,7 +307,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

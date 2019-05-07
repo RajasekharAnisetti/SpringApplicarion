@@ -1,5 +1,4 @@
 import { Moment } from 'moment';
-import { IWoPackage } from 'app/shared/model/wo-package.model';
 
 export interface IWoWorkOrder {
     id?: number;
@@ -22,11 +21,16 @@ export interface IWoWorkOrder {
     jobCustomer?: string;
     serviceType?: number;
     jobSales?: string;
+    jobDeadlineTime?: number;
+    jobTimeZone?: number;
+    shippingDate?: Moment;
+    shippingTime?: number;
+    insuranceType?: number;
+    shipTotalWeight?: string;
+    shipmentCurrency?: string;
+    shipmentMetric?: string;
     woRequestType?: number;
-    woPackages?: IWoPackage[];
-    shipToId?: number;
-    shipFromId?: number;
-    woPackageTypeId?: number;
+    woCustomsBrokerageId?: number;
 }
 
 export class WoWorkOrder implements IWoWorkOrder {
@@ -51,10 +55,15 @@ export class WoWorkOrder implements IWoWorkOrder {
         public jobCustomer?: string,
         public serviceType?: number,
         public jobSales?: string,
+        public jobDeadlineTime?: number,
+        public jobTimeZone?: number,
+        public shippingDate?: Moment,
+        public shippingTime?: number,
+        public insuranceType?: number,
+        public shipTotalWeight?: string,
+        public shipmentCurrency?: string,
+        public shipmentMetric?: string,
         public woRequestType?: number,
-        public woPackages?: IWoPackage[],
-        public shipToId?: number,
-        public shipFromId?: number,
-        public woPackageTypeId?: number
+        public woCustomsBrokerageId?: number
     ) {}
 }

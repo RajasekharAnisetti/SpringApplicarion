@@ -1,11 +1,12 @@
 package com.java.examples.service.dto;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the WoWorkOrder entity.
+ * A DTO for the {@link com.java.examples.domain.WoWorkOrder} entity.
  */
 public class WoWorkOrderDTO implements Serializable {
 
@@ -65,15 +66,30 @@ public class WoWorkOrderDTO implements Serializable {
     @Size(max = 255)
     private String jobSales;
 
+    private Long jobDeadlineTime;
+
+    private Long jobTimeZone;
+
+    private LocalDate shippingDate;
+
+    private Long shippingTime;
+
+    private Long insuranceType;
+
+    @Size(max = 255)
+    private String shipTotalWeight;
+
+    @Size(max = 255)
+    private String shipmentCurrency;
+
+    @Size(max = 255)
+    private String shipmentMetric;
+
     @Max(value = 11)
     private Integer woRequestType;
 
 
-    private Long shipToId;
-
-    private Long shipFromId;
-
-    private Long woPackageTypeId;
+    private Long woCustomsBrokerageId;
 
     public Long getId() {
         return id;
@@ -235,6 +251,70 @@ public class WoWorkOrderDTO implements Serializable {
         this.jobSales = jobSales;
     }
 
+    public Long getJobDeadlineTime() {
+        return jobDeadlineTime;
+    }
+
+    public void setJobDeadlineTime(Long jobDeadlineTime) {
+        this.jobDeadlineTime = jobDeadlineTime;
+    }
+
+    public Long getJobTimeZone() {
+        return jobTimeZone;
+    }
+
+    public void setJobTimeZone(Long jobTimeZone) {
+        this.jobTimeZone = jobTimeZone;
+    }
+
+    public LocalDate getShippingDate() {
+        return shippingDate;
+    }
+
+    public void setShippingDate(LocalDate shippingDate) {
+        this.shippingDate = shippingDate;
+    }
+
+    public Long getShippingTime() {
+        return shippingTime;
+    }
+
+    public void setShippingTime(Long shippingTime) {
+        this.shippingTime = shippingTime;
+    }
+
+    public Long getInsuranceType() {
+        return insuranceType;
+    }
+
+    public void setInsuranceType(Long insuranceType) {
+        this.insuranceType = insuranceType;
+    }
+
+    public String getShipTotalWeight() {
+        return shipTotalWeight;
+    }
+
+    public void setShipTotalWeight(String shipTotalWeight) {
+        this.shipTotalWeight = shipTotalWeight;
+    }
+
+    public String getShipmentCurrency() {
+        return shipmentCurrency;
+    }
+
+    public void setShipmentCurrency(String shipmentCurrency) {
+        this.shipmentCurrency = shipmentCurrency;
+    }
+
+    public String getShipmentMetric() {
+        return shipmentMetric;
+    }
+
+    public void setShipmentMetric(String shipmentMetric) {
+        this.shipmentMetric = shipmentMetric;
+    }
+
     public Integer getWoRequestType() {
         return woRequestType;
     }
@@ -243,28 +323,12 @@ public class WoWorkOrderDTO implements Serializable {
         this.woRequestType = woRequestType;
     }
 
-    public Long getShipToId() {
-        return shipToId;
+    public Long getWoCustomsBrokerageId() {
+        return woCustomsBrokerageId;
     }
 
-    public void setShipToId(Long shippingAddressId) {
-        this.shipToId = shippingAddressId;
-    }
-
-    public Long getShipFromId() {
-        return shipFromId;
-    }
-
-    public void setShipFromId(Long shippingAddressId) {
-        this.shipFromId = shippingAddressId;
-    }
-
-    public Long getWoPackageTypeId() {
-        return woPackageTypeId;
-    }
-
-    public void setWoPackageTypeId(Long woPackageTypeId) {
-        this.woPackageTypeId = woPackageTypeId;
+    public void setWoCustomsBrokerageId(Long woCustomsBrokerageId) {
+        this.woCustomsBrokerageId = woCustomsBrokerageId;
     }
 
     @Override
@@ -311,10 +375,16 @@ public class WoWorkOrderDTO implements Serializable {
             ", jobCustomer='" + getJobCustomer() + "'" +
             ", serviceType=" + getServiceType() +
             ", jobSales='" + getJobSales() + "'" +
+            ", jobDeadlineTime=" + getJobDeadlineTime() +
+            ", jobTimeZone=" + getJobTimeZone() +
+            ", shippingDate='" + getShippingDate() + "'" +
+            ", shippingTime=" + getShippingTime() +
+            ", insuranceType=" + getInsuranceType() +
+            ", shipTotalWeight='" + getShipTotalWeight() + "'" +
+            ", shipmentCurrency='" + getShipmentCurrency() + "'" +
+            ", shipmentMetric='" + getShipmentMetric() + "'" +
             ", woRequestType=" + getWoRequestType() +
-            ", shipTo=" + getShipToId() +
-            ", shipFrom=" + getShipFromId() +
-            ", woPackageType=" + getWoPackageTypeId() +
+            ", woCustomsBrokerage=" + getWoCustomsBrokerageId() +
             "}";
     }
 }

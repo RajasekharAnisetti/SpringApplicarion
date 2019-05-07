@@ -51,7 +51,9 @@ export class WoWorkOrderService {
 
     protected convertDateFromClient(woWorkOrder: IWoWorkOrder): IWoWorkOrder {
         const copy: IWoWorkOrder = Object.assign({}, woWorkOrder, {
-            dateCreated: woWorkOrder.dateCreated != null && woWorkOrder.dateCreated.isValid() ? woWorkOrder.dateCreated.toJSON() : null
+            dateCreated: woWorkOrder.dateCreated != null && woWorkOrder.dateCreated.isValid() ? woWorkOrder.dateCreated.toJSON() : null,
+            shippingDate:
+                woWorkOrder.shippingDate != null && woWorkOrder.shippingDate.isValid() ? woWorkOrder.shippingDate.format(DATE_FORMAT) : null
         });
         return copy;
     }
@@ -59,6 +61,7 @@ export class WoWorkOrderService {
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
             res.body.dateCreated = res.body.dateCreated != null ? moment(res.body.dateCreated) : null;
+            res.body.shippingDate = res.body.shippingDate != null ? moment(res.body.shippingDate) : null;
         }
         return res;
     }
@@ -67,6 +70,7 @@ export class WoWorkOrderService {
         if (res.body) {
             res.body.forEach((woWorkOrder: IWoWorkOrder) => {
                 woWorkOrder.dateCreated = woWorkOrder.dateCreated != null ? moment(woWorkOrder.dateCreated) : null;
+                woWorkOrder.shippingDate = woWorkOrder.shippingDate != null ? moment(woWorkOrder.shippingDate) : null;
             });
         }
         return res;

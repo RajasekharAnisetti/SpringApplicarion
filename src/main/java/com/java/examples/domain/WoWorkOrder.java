@@ -1,16 +1,13 @@
 package com.java.examples.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -21,7 +18,7 @@ import java.util.Objects;
 public class WoWorkOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -99,23 +96,40 @@ public class WoWorkOrder implements Serializable {
     @Column(name = "job_sales", length = 255)
     private String jobSales;
 
+    @Column(name = "job_deadline_time")
+    private Long jobDeadlineTime;
+
+    @Column(name = "job_time_zone")
+    private Long jobTimeZone;
+
+    @Column(name = "shipping_date")
+    private LocalDate shippingDate;
+
+    @Column(name = "shipping_time")
+    private Long shippingTime;
+
+    @Column(name = "insurance_type")
+    private Long insuranceType;
+
+    @Size(max = 255)
+    @Column(name = "ship_total_weight", length = 255)
+    private String shipTotalWeight;
+
+    @Size(max = 255)
+    @Column(name = "shipment_currency", length = 255)
+    private String shipmentCurrency;
+
+    @Size(max = 255)
+    @Column(name = "shipment_metric", length = 255)
+    private String shipmentMetric;
+
     @Max(value = 11)
     @Column(name = "wo_request_type")
     private Integer woRequestType;
 
-    @OneToMany(mappedBy = "woWorkOrder")
-    private Set<WoPackage> woPackages = new HashSet<>();
-    @ManyToOne
-    @JsonIgnoreProperties("woWorkOrders")
-    private ShippingAddress shipTo;
-
-    @ManyToOne
-    @JsonIgnoreProperties("woWorkOrders")
-    private ShippingAddress shipFrom;
-
-    @ManyToOne
-    @JsonIgnoreProperties("woWorkOrders")
-    private WoPackageType woPackageType;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private WoCustomsBrokerage woCustomsBrokerage;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -373,6 +387,110 @@ public class WoWorkOrder implements Serializable {
         this.jobSales = jobSales;
     }
 
+    public Long getJobDeadlineTime() {
+        return jobDeadlineTime;
+    }
+
+    public WoWorkOrder jobDeadlineTime(Long jobDeadlineTime) {
+        this.jobDeadlineTime = jobDeadlineTime;
+        return this;
+    }
+
+    public void setJobDeadlineTime(Long jobDeadlineTime) {
+        this.jobDeadlineTime = jobDeadlineTime;
+    }
+
+    public Long getJobTimeZone() {
+        return jobTimeZone;
+    }
+
+    public WoWorkOrder jobTimeZone(Long jobTimeZone) {
+        this.jobTimeZone = jobTimeZone;
+        return this;
+    }
+
+    public void setJobTimeZone(Long jobTimeZone) {
+        this.jobTimeZone = jobTimeZone;
+    }
+
+    public LocalDate getShippingDate() {
+        return shippingDate;
+    }
+
+    public WoWorkOrder shippingDate(LocalDate shippingDate) {
+        this.shippingDate = shippingDate;
+        return this;
+    }
+
+    public void setShippingDate(LocalDate shippingDate) {
+        this.shippingDate = shippingDate;
+    }
+
+    public Long getShippingTime() {
+        return shippingTime;
+    }
+
+    public WoWorkOrder shippingTime(Long shippingTime) {
+        this.shippingTime = shippingTime;
+        return this;
+    }
+
+    public void setShippingTime(Long shippingTime) {
+        this.shippingTime = shippingTime;
+    }
+
+    public Long getInsuranceType() {
+        return insuranceType;
+    }
+
+    public WoWorkOrder insuranceType(Long insuranceType) {
+        this.insuranceType = insuranceType;
+        return this;
+    }
+
+    public void setInsuranceType(Long insuranceType) {
+        this.insuranceType = insuranceType;
+    }
+
+    public String getShipTotalWeight() {
+        return shipTotalWeight;
+    }
+
+    public WoWorkOrder shipTotalWeight(String shipTotalWeight) {
+        this.shipTotalWeight = shipTotalWeight;
+        return this;
+    }
+
+    public void setShipTotalWeight(String shipTotalWeight) {
+        this.shipTotalWeight = shipTotalWeight;
+    }
+
+    public String getShipmentCurrency() {
+        return shipmentCurrency;
+    }
+
+    public WoWorkOrder shipmentCurrency(String shipmentCurrency) {
+        this.shipmentCurrency = shipmentCurrency;
+        return this;
+    }
+
+    public void setShipmentCurrency(String shipmentCurrency) {
+        this.shipmentCurrency = shipmentCurrency;
+    }
+
+    public String getShipmentMetric() {
+        return shipmentMetric;
+    }
+
+    public WoWorkOrder shipmentMetric(String shipmentMetric) {
+        this.shipmentMetric = shipmentMetric;
+        return this;
+    }
+
+    public void setShipmentMetric(String shipmentMetric) {
+        this.shipmentMetric = shipmentMetric;
+    }
+
     public Integer getWoRequestType() {
         return woRequestType;
     }
@@ -386,68 +504,17 @@ public class WoWorkOrder implements Serializable {
         this.woRequestType = woRequestType;
     }
 
-    public Set<WoPackage> getWoPackages() {
-        return woPackages;
+    public WoCustomsBrokerage getWoCustomsBrokerage() {
+        return woCustomsBrokerage;
     }
 
-    public WoWorkOrder woPackages(Set<WoPackage> woPackages) {
-        this.woPackages = woPackages;
+    public WoWorkOrder woCustomsBrokerage(WoCustomsBrokerage woCustomsBrokerage) {
+        this.woCustomsBrokerage = woCustomsBrokerage;
         return this;
     }
 
-    public WoWorkOrder addWoPackage(WoPackage woPackage) {
-        this.woPackages.add(woPackage);
-        woPackage.setWoWorkOrder(this);
-        return this;
-    }
-
-    public WoWorkOrder removeWoPackage(WoPackage woPackage) {
-        this.woPackages.remove(woPackage);
-        woPackage.setWoWorkOrder(null);
-        return this;
-    }
-
-    public void setWoPackages(Set<WoPackage> woPackages) {
-        this.woPackages = woPackages;
-    }
-
-    public ShippingAddress getShipTo() {
-        return shipTo;
-    }
-
-    public WoWorkOrder shipTo(ShippingAddress shippingAddress) {
-        this.shipTo = shippingAddress;
-        return this;
-    }
-
-    public void setShipTo(ShippingAddress shippingAddress) {
-        this.shipTo = shippingAddress;
-    }
-
-    public ShippingAddress getShipFrom() {
-        return shipFrom;
-    }
-
-    public WoWorkOrder shipFrom(ShippingAddress shippingAddress) {
-        this.shipFrom = shippingAddress;
-        return this;
-    }
-
-    public void setShipFrom(ShippingAddress shippingAddress) {
-        this.shipFrom = shippingAddress;
-    }
-
-    public WoPackageType getWoPackageType() {
-        return woPackageType;
-    }
-
-    public WoWorkOrder woPackageType(WoPackageType woPackageType) {
-        this.woPackageType = woPackageType;
-        return this;
-    }
-
-    public void setWoPackageType(WoPackageType woPackageType) {
-        this.woPackageType = woPackageType;
+    public void setWoCustomsBrokerage(WoCustomsBrokerage woCustomsBrokerage) {
+        this.woCustomsBrokerage = woCustomsBrokerage;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -456,19 +523,15 @@ public class WoWorkOrder implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof WoWorkOrder)) {
             return false;
         }
-        WoWorkOrder woWorkOrder = (WoWorkOrder) o;
-        if (woWorkOrder.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), woWorkOrder.getId());
+        return id != null && id.equals(((WoWorkOrder) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override
@@ -494,6 +557,14 @@ public class WoWorkOrder implements Serializable {
             ", jobCustomer='" + getJobCustomer() + "'" +
             ", serviceType=" + getServiceType() +
             ", jobSales='" + getJobSales() + "'" +
+            ", jobDeadlineTime=" + getJobDeadlineTime() +
+            ", jobTimeZone=" + getJobTimeZone() +
+            ", shippingDate='" + getShippingDate() + "'" +
+            ", shippingTime=" + getShippingTime() +
+            ", insuranceType=" + getInsuranceType() +
+            ", shipTotalWeight='" + getShipTotalWeight() + "'" +
+            ", shipmentCurrency='" + getShipmentCurrency() + "'" +
+            ", shipmentMetric='" + getShipmentMetric() + "'" +
             ", woRequestType=" + getWoRequestType() +
             "}";
     }

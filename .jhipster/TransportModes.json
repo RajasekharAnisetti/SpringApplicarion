@@ -1,0 +1,30 @@
+{
+    "name": "TransportModes",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "woTransportModes",
+            "otherEntityRelationshipName": "transportModes",
+            "relationshipName": "woTransportModes"
+        }
+    ],
+    "changelogDate": "20190507070528",
+    "entityTableName": "transport_modes",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
